@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //组合模式：节省操作过程，缺点：耗性能
+    // 多个对象按照树状结构组合起来，能够实现批量操作的过程
+
+    //动态页面 DOM结构
+
+    //枝对象
+    function ImagesStore(id) {
+        this.children = [];
+        this.element = document.createElement("div");
+        this.element.id = id;
+        document.body.appendChild(this.element);
+    }
+    ImagesStore.prototype = {
+        constructoe: ImagesStore,
+        add: function (child) {
+            this.children.push(child);
+            this.element.appendChild(child.getElement());
+            // console.log(this.element)
+        },
+        remove: function (child) {
+            for (var node, i = 0; node = this.getChild(i); i++) {
+                if (node === child) {
+                    this.children.splice(i, 1);
+                    break;
+                }
+            }
+            this.element.removeChild(chile.getElement());
+        },
+        getChild: function (i) {
+            return this.children[i];
+        },
+        show: function () {
+            this.element.style.border = "solid 2px blue";
+            for (var node, i = 0; node = this.getChild(i); i++) {
+                node.show();
+            }
+        },
+        hide: function () {
+            for (var node, i = 0; node = ths.getChild(i); i++) {
+                node.hide();
+            }
+            this.element.style.border = "";
+        },
+        getElement: function () {
+            return this.element;
+        }
+    }
+
+//叶对象
+    function ImageItem(src) {
+        this.element = document.createElement("img");
+        this.element.src = src;
+    }
+    ImageItem.prototype={
+        constructoe:ImageItem,
+        show:function(){
+            this.element.style.border="2px solid pink";
+        },
+        hide:function(){
+            this.element.style.border="none";
+        },
+        getElement:function(){
+            return this.element;
+        }
+    }
+    //创建一个叶对象
+    var img1=new ImageItem("../../img/d.jpg")
+    var img2=new ImageItem("../../img/e.jpg")
+    var img3=new ImageItem("../../img/a.jpg")
+    var img4=new ImageItem("../../img/b.jpg")
+    console.log(img1.element)
+    var parent = new ImagesStore("box")
+    parent.add(img1)
+    parent.add(img2)
+    parent.add(img3)
+    parent.add(img4)
+    parent.show()
+</script>
+
+</html>

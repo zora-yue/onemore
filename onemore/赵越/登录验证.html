@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+    .form {padding-left: 125px;padding-top: 60px; position: relative;}
+      .form span {float: left;width: 110px;
+        padding-right: 10px;
+        height: 35px;
+        line-height: 35px;
+        text-align: right;
+        color: #2f313a;
+        display: block;
+        font-size: 14px; }
+          .form input{color: #ccc;}
+      .form .txt {padding: 5px 0;height: 45px; }
+        .form .txt .user {
+          padding: 6px 30px 7px 10px;
+          border: 1px solid #c9c8cf;
+          height: 20px;
+          line-height: 20px;
+          width: 258px; }
+        .form .txt .phone {
+          padding: 6px 30px 7px 10px;
+          border: 1px solid #c9c8cf;
+          height: 20px;
+          line-height: 20px;
+          width: 258px; }
+        .form .txt .yan {
+          padding: 6px 30px 7px 10px;
+          border: 1px solid #c9c8cf;
+          height: 20px;
+          line-height: 20px;
+          width: 258px;
+          float: left; }
+          
+        .form .txt .gou {
+          float: left; }
+        .form .txt .yes {
+          float: left;
+          font-size: 13px; }
+          .form .txt .yes a {
+            color: #3333ff; }
+      .form .btn {
+        width: 300px;
+        height: 35px;
+        border: none;
+        background: #248cd3;
+        margin-left: 120px;
+        color: #fff;
+        font-size: 18px; }
+        .form .bar{width:300px;height:35px;margin-left:120px;background:#f2f2f2;position:relative;font:14px/34px "";text-align: center;}
+        .form .bar span{position:absolute;width:300px;height:35px;font:14px/34px "";text-align: center;}
+        .form .bar p{width:16px;height:34px;position:absolute;left:0;background: #61f464;}
+        .form .bar p i{width:32px;height:32px;border:1px solid #ccc;position:absolute;left:0;top:0;z-index: 3;background:#fff;}
+        .form .tan{width:200px;height:100px;font:16px/100px "";text-align: center;border:1px solid #333;background:#ccc;position:absolute;top:60px;left:280px;display: none;}
+    </style>
+</head>
+<body>
+        <div class="form">
+                <div class="txt">
+                <span>用户名：</span><input type="text" class="user" value="请设置用户名">
+                </div>
+                <div class="txt">
+                <span>手机号码：</span><input type="text" class="phone" value="可用于登录和找回密码">
+                </div>
+                <div class="txt">
+                <span>验证码：</span><input type="text" class="yan he" value="请输入验证码">
+                </div>
+                <div class="txt">
+                <span>验证：</span><div class="bar"><p><i>>></i></p><span>请按住滑块，拖动到最右边</span></div>
+                </div>
+                <div class="txt">
+                <span></span><input type="checkbox" class="gou"> <p class="yes">我已阅读并同意<a href="##">《百度用户协议》</a></p>
+                </div>
+                <input type="button" class="btn" value="注册">
+                <div class="tan"></div>
+            </div>
+</body>
+<script>
+    class yanzheng{
+        constructor(){
+            this.user=document.querySelector(".user");
+            this.phone=document.querySelector(".phone");
+            this.tan=document.querySelector(".tan");
+            this.bar=document.querySelector(".bar");
+            this.op=document.querySelector(".bar p");
+            this.oi=document.querySelector(".bar p i");
+            this.ospan=document.querySelector(".bar span");
+            console.log(this.tan)
+            this.use();
+            this.move();
+        }
+        use(){
+            var that=this;
+            this.user.onmousedown=function(){
+                that.user.value="";
+            }
+            this.phone.onmousedown=function(){
+                that.phone.value="";
+            }
+            this.blur()
+        }
+        blur(){
+            var that=this;
+            
+            this.user.onblur=function(){
+            var reg=/^[a-zA-Z_][a-zA-Z0-9_]{7,20}$/;
+                if(reg.test(that.user.value)){
+                    that.user.value=that.user.value;
+                }else{
+                    that.tan.style.display="block"
+                    that.tan.innerText="请输入正确格式";
+                    setTimeout(()=>{that.tan.style.display="none"},3000)
+                }
+            }
+            this.phone.onblur=function(){
+            var reg=/^1[3-9]\d{9}$/;
+                if(reg.test(that.phone.value)){
+                    that.phone.value=that.phone.value;
+                }else{
+                    that.tan.style.display="block"
+                    that.tan.innerText="请输入11位正确手机号码";
+                    setTimeout(()=>{that.tan.style.display="none"},3000)
+                }
+            }
+        }
+        move(){
+            var that=this;
+            this.oi.onmousedown=function(eve){
+                var e=eve||window.event;
+                var x=e.offsetX;
+                document.onmousemove=function(eve){
+                    var e=eve||window.event;
+                    var l=e.clientX-x-that.bar.offsetLeft;
+                    if(l<=0) l=0;
+                    if(l>that.bar.offsetWidth-that.oi.offsetWidth) l=that.bar.offsetWidth-that.oi.offsetWidth;
+                    that.oi.style.left=l+"px";
+                    that.op.style.width=l+16+"px";
+                    if(l==that.bar.offsetWidth-that.oi.offsetWidth){
+                        that.ospan.innerText="验证成功"
+                    }
+                }
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                }
+            }
+        }
+    }
+    new yanzheng;
+</script>
+</html>

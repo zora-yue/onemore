@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>观察者模式</title>
+</head>
+<body>
+    
+</body>
+<script>
+//观察者模式（发布订阅者模式） 低耦合
+//主体对象（发布者）：发布信息 只能有一个
+//观察者（订阅者）：接收信息 可以有多个
+     function Child(n){
+         this.name=n;
+     }
+     Child.prototype.type=function(){
+         if(Math.random()<0.6){
+             console.log(this.name+"肚子饿了")
+             return 0;
+         }else{
+             console.log(this.name+"出去玩")
+             return 1;
+         }
+     }
+     function Father(n){
+         this.name=n;
+     }
+     Father.prototype.listen=function(type){
+         if(type==0){
+             console.log(this.name+"喂饭")
+         }else{
+             console.log(this.name+"出去玩")
+         }
+     }
+     function Mather(n){
+         this.name=n;
+     }
+     Mather.prototype.listen=function(type){
+         if(type==0){
+             console.log(this.name+"喂饭")
+         }else{
+             console.log(this.name+"出去玩")
+         }
+     }
+
+     var c=new Child("宝宝")
+     var f=new Father("宝爸")
+     var m=new Mather("宝妈")
+        setInterval(function(){
+            var t=c.type();
+            f.listen(t);
+            m.listen(t);
+        },2000)
+</script>
+</html>

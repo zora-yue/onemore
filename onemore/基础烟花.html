@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #cont{width:80%;height:600px;background: #000;margin:20px auto;position:relative;overflow: hidden;}
+        .fire{width:10px;height:10px;position: absolute;bottom:0;}
+        .firework{width:10px;height:10px;position: absolute;border-radius: 50%;}
+    </style>
+</head>
+<body>
+    <div id="cont"></div>
+</body>
+<script src="../move.js"></script>
+<script>
+    //位置随机版
+// function Fire(cont,pos){
+//     this.cont=cont;
+//     console.log(this.cont)
+
+//     this.x=pos.x;
+//     this.y=pos.y;
+//     this.createFire()
+// }
+// Fire.prototype.createFire=function(){
+//     this.mainFire=document.createElement("div")
+//     this.mainFire.className="fire";
+//     this.mainFire.style.background=this.randomColor();
+//     this.mainFire.style.left=this.x+"px";
+//     this.cont.appendChild(this.mainFire)
+//     this.move();
+// }
+// Fire.prototype.move=function(){
+//     var that=this;
+//     move(this.mainFire,{top:this.y},function(){
+//         that.mainFire.remove();
+//         that.createSmall();
+//     })
+// }
+// Fire.prototype.createSmall=function(){
+//     var num=this.random(10,20);
+//     for(var i=0;i<num;i++){
+//         let div=document.createElement("div");
+//         div.className="firework";
+//         div.style.background=this.randomColor();
+//         div.style.left=this.x+"px";
+//         div.style.top=this.y+"px";
+//         div.setAttribute("index",i);
+//         this.cont.appendChild(div)
+//         move(div,{
+//         left:this.random(0,this.cont.offsetWidth),
+//         top:this.random(0,this.cont.offsetHeight)
+//     },function(){
+//         div.remove()
+        
+//     })
+//     }
+    
+// }
+
+// Fire.prototype.random=function(a,b){
+//     return Math.round(Math.random()*(a-b)+b);
+// }
+// Fire.prototype.randomColor=function(){
+//     return `rgba(${this.random(0,255)},${this.random(0,255)},${this.random(0,255)})`
+// }
+// var cont=document.getElementById("cont")
+// cont.onclick=function(eve){
+//     var e=eve||winddow.event;
+//     var pos={
+//         x:e.offsetX,
+//         y:e.offsetY
+//     }
+//     new Fire(cont,pos);
+// }
+// 圆周版
+    var ocont=document.querySelector("#cont");
+    ocont.onclick=function(eve){
+        var e=eve||window.event;
+        var pos={
+            x:e.clientX-ocont.offsetLeft,
+            y:e.clientY-ocont.offsetTop
+        }
+        // console.log(e.clientY,ocont.offsetTop)
+        new Fun(ocont,pos)
+    }
+    function Fun(cont,pos){
+        this.cont=cont;
+        this.x=pos.x;
+        this.y=pos.y;
+        this.createFire();
+    }
+    Fun.prototype.createFire=function(){
+        this.mainfire=document.createElement("div");
+        this.mainfire.className="fire";
+        this.mainfire.style.background=this.randomColor();
+        this.mainfire.style.left=this.x+"px";
+        this.cont.appendChild(this.mainfire)
+        this.firemove()
+    }
+    Fun.prototype.firemove=function(){
+        var that=this;
+        move(this.mainfire,{top:this.y},function(){
+            that.mainfire.remove();
+            that.createFirewok();
+        })
+    }
+    Fun.prototype.createFirewok=function(){
+        var num=this.random(10,20);
+        var r=this.random(80,200);
+        var that=this;
+        for(var i=0;i<num;i++){
+            let div=document.createElement("div");
+            div.className="firework";
+            div.style.left=this.x+"px";
+            div.style.top=this.y+"px";
+            div.style.background=this.randomColor();
+            div.setAttribute("index",i);
+            this.cont.appendChild(div);
+           move(div,{
+               left:parseInt(Math.cos(Math.PI/180*(360/num*i))*r)+this.x,
+               top:parseInt(Math.sin(Math.PI/180*(360/num*i))*r)+this.y
+           },function(){
+            div.remove();
+           })
+        }
+    }
+    
+    Fun.prototype.random=function(a,b){
+        return Math.round(Math.random()*(a-b)+b);
+    }
+    Fun.prototype.randomColor=function(){
+        return `rgb(${this.random(0,255)},${this.random(0,255)},${this.random(0,255)})`;
+    }
+</script>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public.css">
+    <style>
+			.cont{margin:0 auto;position:relative;}
+			.cont .box{float:left;padding:6px;}
+			.cont .box .imgbox{border:1px solid #ccc; border-radius: 6px;padding:6px;}
+			.cont .box .imgbox img{width:200px;display: block;}
+        </style>
+        <script src="../jquery.2.2.4.js"></script>
+        <script>
+          
+        //  function waterFlow(){
+        //         this.cont=document.querySelector(".cont");
+        //         this.box=document.querySelectorAll(".box");
+        //         this.clientW=document.documentElement.clientWidth;
+        //         this.heightArr=[];
+        //         //页面的可视高度
+        //         this.clientH=document.documentElement.clientHeight;
+        //         this.data=[{
+        //             src:"../img/1.jpg"
+        //         },{
+        //             src:"../img/2.jpg"
+        //         },{
+        //             src:"../img/3.jpg"
+        //         },{
+        //             src:"../img/4.jpg"
+        //         },{
+        //             src:"../img/5.jpg"
+        //         },{
+        //             src:"../img/6.jpg"
+        //         },{
+        //             src:"../img/7.jpg"
+        //         },{
+        //             src:"../img/8.jpg"
+        //         },{
+        //             src:"../img/9.jpg"
+        //         },{
+        //             src:"../img/10.jpg"
+        //         },{
+        //             src:"../img/a.jpg"
+        //         },{
+        //             src:"../img/b.jpg"
+        //         },{
+        //             src:"../img/c.jpg"
+        //         },{
+        //             src:"../img/d.jpg"
+        //         },{
+        //             src:"../img/e.jpg"
+        //         },{
+        //             src:"../img/fei.jpg"
+        //         },{
+        //             src:"../img/fei1.jpg"
+        //         },{
+        //             src:"../img/fei3.jpg"
+        //         },{
+        //             src:"../img/fei4.jpg"
+        //         },]
+        //         this.init();
+        //         this.addEvent();
+        //     }
+        //     waterFlow.prototype.init=function(){
+        //         this.maxnum=Math.floor(this.clientW/this.box[0].offsetWidth);
+        //         this.cont.style.width=this.box[0].offsetWidth*this.maxnum+"px";
+        //         this.fenhang();
+        //     }
+        //     waterFlow.prototype.fenhang=function(){
+        //         for(var i=0;i<this.maxnum;i++){
+        //             this.first(i);
+                   
+
+        //         }
+        //         for(var i=this.maxnum;i<this.box.length;i++){
+        //         // console.log(this.box.length)
+        //             this.other(i);
+        //         }
+        //     }
+        //     waterFlow.prototype.first=function(i){
+        //         this.heightArr.push(this.box[i].offsetHeight)
+        //     }
+        //     waterFlow.prototype.other=function(i){
+        //         this.min=this.getmin(this.heightArr);
+        //         this.minIndex=this.heightArr.indexOf(this.min);
+        //         this.box[i].style.position="absolute";
+        //         this.box[i].style.top=this.min+"px";
+        //         this.box[i].style.left=this.box[0].offsetWidth*this.minIndex+"px";
+        //         console.log(this.min,this.minIndex)
+        //         this.heightArr[this.minIndex]+=this.box[i].offsetHeight;
+        //     }
+        //     waterFlow.prototype.addEvent=function(){
+        //         var that=this;
+        //         onscroll=function(){
+        //             that.lastTop=that.box[that.box.length-1].offsetTop;
+        //             that.scrollTop=document.documentElement.scrollTop;
+        //             if(that.lastTop-that.clientH<=that.scrollTop){
+        //                 that.display();
+        //             }
+        //         }
+        //     }
+        //     waterFlow.prototype.display=function(){
+        //         var str="";
+        //         for(var i=0;i<this.data.length;i++){
+        //             str+=`
+        //             <div class="box">
+        //             <div class="imgbox">
+        //                 <img src="${this.data[i].src}"/>
+        //             </div>
+        //         </div>
+        //             `;
+        //         }
+        //         this.cont.innerHTML+=str;
+        //         this.box=document.querySelectorAll(".box");
+        //         this.heightArr=[];
+        //         this.fenhang();
+        //     }
+        //     waterFlow.prototype.getmin=function(arr){
+        //         return arr.slice(0).sort((a,b)=>a-b)[0];
+        //     }
+           
+        //     onload=function(){
+        //         new waterFlow;
+        //     }
+           
+            function waterFlow(){
+                this.cont=$(".cont");
+                this.box=$(".box");
+                this.clientW=document.documentElement.clientWidth;
+                this.data=[{
+                    src:"../img/1.jpg"
+                },{
+                    src:"../img/2.jpg"
+                },{
+                    src:"../img/3.jpg"
+                },{
+                    src:"../img/4.jpg"
+                },{
+                    src:"../img/5.jpg"
+                },{
+                    src:"../img/6.jpg"
+                },{
+                    src:"../img/7.jpg"
+                },{
+                    src:"../img/8.jpg"
+                },{
+                    src:"../img/9.jpg"
+                },{
+                    src:"../img/10.jpg"
+                },{
+                    src:"../img/a.jpg"
+                },{
+                    src:"../img/b.jpg"
+                },{
+                    src:"../img/c.jpg"
+                },{
+                    src:"../img/d.jpg"
+                },{
+                    src:"../img/e.jpg"
+                },{
+                    src:"../img/fei.jpg"
+                },{
+                    src:"../img/fei1.jpg"
+                },{
+                    src:"../img/fei3.jpg"
+                },{
+                    src:"../img/fei4.jpg"
+                },]
+                this.clientH=document.documentElement.clientHeight;
+                this.heightArr=[];
+                this.init();
+                this.addEvent();
+            }
+            waterFlow.prototype.init=function(){
+                // console.log(this.box.width())
+                this.maxNum=Math.floor(this.clientW/this.box.eq(0).innerWidth());
+                this.cont.css("width",this.box.eq(0).innerWidth()*this.maxNum);
+                this.fenhang();
+            }
+            waterFlow.prototype.fenhang=function(){
+                for(var i=0;i<this.maxNum;i++){
+                    this.first(i);
+                }
+                for(var i=this.maxNum;i<this.box.length;i++){
+                    this.other(i);
+                }
+            }
+            waterFlow.prototype.first=function(i){
+                this.heightArr.push(this.box.eq(i).innerHeight())
+                // console.log(this.heightArr)
+            }
+            waterFlow.prototype.other=function(i){
+                this.min=this.getmin(this.heightArr)
+                this.minIndex=this.heightArr.indexOf(this.min);
+                this.box.eq(i).css({
+                    "position":"absolute",
+                    left:this.box.eq(i).innerWidth()*this.minIndex,
+                    top:this.min
+                })
+                this.heightArr[this.minIndex]+=this.box.eq(i).innerHeight();
+            }
+            waterFlow.prototype.addEvent=function(){
+                var that=this;
+                onscroll=function(){
+                    that.lastTop=that.box.eq(that.box.length-1).offset().top;
+                    that.scrollTop=$(document).scrollTop();
+                    if(that.clientH-that.lastTop<=that.scrollTop){
+                        that.display();
+                    }
+                }
+            }
+            waterFlow.prototype.display=function(){
+                var str="";
+                for(var i=0;i<this.data.length;i++){
+                    str+=`
+                    <div class="box">
+                    <div class="imgbox">
+                        <img src="${this.data[i].src}"/>
+                    </div>
+                </div>
+                    `;
+                }
+            this.cont.html(this.cont.html()+str);
+            this.box=$(".box");
+            this.heightArr=[];
+            this.fenhang();
+            }
+            waterFlow.prototype.getmin=function(arr){
+                return arr.slice(0).sort((a,b)=>a-b)[0];
+            }
+
+
+
+            onload=function(){
+                new waterFlow();
+            }
+      
+        </script>
+</head>
+<body>
+        <div class="cont clear">
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/3.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                        <div class="imgbox">
+                            <img src="../img/1.jpg"/>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="imgbox">
+                            <img src="../img/2.jpg"/>
+                        </div>
+                    </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/4.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/5.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/6.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/7.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/8.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/9.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/10.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/a.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/b.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/c.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/d.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgbox">
+                        <img src="../img/fei.jpg"/>
+                    </div>
+                </div>
+                <div class="box">
+                        <div class="imgbox">
+                            <img src="../img/fei1.jpg"/>
+                        </div>
+                    </div>
+                    <div class="box">
+                            <div class="imgbox">
+                                <img src="../img/fei3.jpg"/>
+                            </div>
+                        </div>
+                        <div class="box">
+                                <div class="imgbox">
+                                    <img src="../img/fei4.jpg"/>
+                                </div>
+                            </div>
+            </div>
+</body>
+</html>

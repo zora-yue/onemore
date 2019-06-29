@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .box{width:100px;height:100px;background: red;position: absolute;}
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+<script>
+    var box=document.querySelector(".box");
+box.onmousedown=function(eve){
+  var e1=eve||window.event;
+document.onmousemove=function(eve){
+    var e2=eve||window.event;
+ box.style.left=e2.pageX-e1.offsetX+"px";
+ box.style.top=e2.pageY-e1.offsetY+"px";
+document.onmouseup=function(){
+document.onmousemove=document.onmouseup=null;
+}
+}
+}
+</script>
+</html>

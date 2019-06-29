@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li{list-style: none;}
+        .sbox{width:400px;height:300px;position:absolute;left:50px;}
+        .sbox img{width:400px;height:300px;display: none;}
+        .sbox img:nth-child(1){display: block;}
+        .sbox span{position:absolute;left:0;top:0;background: rgba(200,200,200,0.6);display: none;}
+        .bbox{width:400px;height:300px;position:absolute;left:500px;overflow: hidden;display: none;}
+        .bbox img{width:1600px;height:1200px;position:absolute;display: none;}
+        .bbox img:nth-child(1){display: block;z-index: 4;} 
+        .bbox img:nth-child(2){display: block;z-index: 3;} 
+        .bbox img:nth-child(3){display: block;z-index: 2;} 
+        .bbox img:nth-child(4){display: block;z-index: 1;} 
+        #small{position:relative;top:320px;display: flex;justify-content: space-between;width:400px;height:auto;}
+        #small li{width:80px;height:80px;}
+        #small li.active{border:2px solid #000}
+        #small li img{width:80px;height:80px;}
+    </style>
+</head>
+<body>
+    <div class="sbox">
+        <img src="../img/fei.jpg"/>
+        <img src="../img/fei1.jpg"/>
+        <img src="../img/fei3.jpg"/>
+        <img src="../img/fei4.jpg"/>
+        <span></span>
+    </div>
+    <div class="bbox">
+        <img src="../img/fei.jpg"/>
+        <img src="../img/fei1.jpg"/>
+        <img src="../img/fei3.jpg"/>
+        <img src="../img/fei4.jpg"/>
+    </div>
+    <ul id=small>
+        <li class="active"><img src="../img/fei.jpg"/></li>
+        <li><img src="../img/fei1.jpg"/></li>
+        <li><img src="../img/fei3.jpg"/></li>
+        <li><img src="../img/fei4.jpg"/></li>
+    </ul>
+</body>
+<script src="../move.js"></script>
+<script src="../jquery.2.2.4.js"></script>
+<script>
+    var $=function(myclass){
+        return document.querySelector(myclass);
+    }
+    class Magnifier{
+        constructor(){
+            this.sbox=$(".sbox");
+            this.span=$(".sbox span");
+            this.bbox=$(".bbox");
+            this.oul=$("ul")
+            this.ali=document.querySelectorAll("ul li")
+            this.aimg=document.querySelectorAll(".sbox img")
+            this.bimg=document.querySelectorAll(".bbox img")
+            this.add();
+        }
+        add(){
+            var that=this;
+            this.sbox.mouseover=function(){
+                that.show();
+                that.init();
+            }
+            this.sbox.mouseout=function(){
+                that.hide();
+            }
+            this.sbox.mousemove=function(eve){
+                var e=eve||window.event;
+                that.move(e);
+            }
+        }
+        
+    }
+
+    new Magnifier();
+
+    // class qiehuan{
+    //     constructor(){
+    //         //获取元素
+    //         this.sbox=$(".sbox");
+    //         this.span=$(".sbox span");
+    //         this.bbox=$(".bbox");
+    //         this.oul=$("ul")
+    //         this.ali=document.querySelectorAll("ul li")
+    //         this.aimg=document.querySelectorAll(".sbox img")
+    //         this.bimg=document.querySelectorAll(".bbox img")
+    //         this.init();
+    //     }
+    //     init(){
+    //         //鼠标进入显示
+    //         var that=this;
+    //         this.sbox.onmouseover=function(){
+    //             that.span.style.display="block";
+    //             that.bbox.style.display="block";
+    //             that.add();
+    //         }
+    //     }
+    //     move(){
+    //         //移动
+    //         console.log(1)
+    //         var that=this;
+    //         this.sbox.onmousemove=function(eve){
+    //             var e=eve||window.event;
+    //             var l=e.pageX-that.sbox.offsetLeft-that.span.offsetWidth/2;
+    //             var t=e.pageY-that.sbox.offsetTop-that.span.offsetHeight/2;
+    //             if(l<0) l=0;
+    //             if(t<0) t=0;
+    //             if(l>that.sbox.offsetWidth-that.span.offsetWidth){
+    //                 l=that.sbox.offsetWidth-that.span.offsetWidth;
+    //             }
+    //             if(t>that.sbox.offsetHeight-that.span.offsetHeight){
+    //                 t=that.sbox.offsetHeight-that.span.offsetHeight;
+    //             }
+
+    //             that.span.style.left=l+"px";
+    //             that.span.style.top=t+"px";
+    //             var x=l/(that.sbox.offsetWidth-that.span.offsetWidth);
+    //             var y=t/(that.sbox.offsetHeight-that.span.offsetHeight);
+    //             that.bimg[that.index].style.left=x*(that.bbox.offsetWidth-that.bimg[that.index].offsetWidth)+"px";
+    //             that.bimg[that.index].style.top=y*(that.bbox.offsetHeight-that.bimg[that.index].offsetHeight)+"px";
+    //             console.log(that.bbox.offsetWidth,that.bimg[that.index].offsetWidth)
+    //             that.hide();
+    //         }
+    //     }
+    //     add(){
+    //         //根据小图显示图片
+    //         var that=this;
+    //         for(var i=0;i<this.ali.length;i++){
+    //             this.ali[i].setAttribute("bianhao",i);
+                
+    //             this.ali[i].onclick=function(){
+    //                 for(var j=0;j<that.ali.length;j++){
+    //                     that.ali[j].className="";
+    //                     that.aimg[j].style.display="none"
+    //                     that.bimg[j].style.display="none"
+    //                 }
+    //                 that.index=this.getAttribute("bianhao")
+    //                 // this.ali[j].className="active";
+    //                 that.aimg[that.index].style.display="block";
+    //                 that.bimg[that.index].style.display="block";
+    //                 that.move();
+
+    //             }
+    //         }
+    //         // this.oul.addEventListener("click",function(eve){
+               
+    //         //     var e=eve||window.event;
+    //         //     var target=e.target||e.srcElement;
+    //         //     //   console.log(target)
+    //         //     if(target.nodeName=="IMG"){
+    //         //         for(var i=0;i<that.ali.length;i++){
+    //         //             console.log(i)
+                    
+    //         //         }
+    //         //     }
+    //         // })
+    //     }
+    //     hide(){
+    //         var that=this;
+    //         this.sbox.onmouseout=function(){
+    //             that.span.style.display="none";
+    //             that.bbox.style.display="none";
+
+    //         }
+    //     }
+    // }
+    // new qiehuan();
+</script>
+</html>

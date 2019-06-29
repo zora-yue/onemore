@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .box1{width:100px;height:100px;background: chartreuse;position:absolute;}
+    .box2{width:100px;height:100px;background: rgb(235, 138, 49);position:absolute; top:120px}
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+</body>
+<script>
+    function Drag(ele){
+        this.ele=ele;
+        this.d=this.down.bind(this);
+        this.m=this.move.bind(this);
+        this.u=this.up.bind(this);
+        this.init();
+    }
+    Drag.prototype.init=function(){
+        this.ele.addEventListener("mousedown",this.d);
+    }
+    Drag.prototype.down=function(eve){
+        var e=eve||window.event;
+        this.disX=e.offsetX;
+        this.disY=e.offsetY;
+        document.addEventListener("mousemove",this.m);
+        document.addEventListener("mouseup",this.u);
+    }
+    Drag.prototype.move=function(eve){
+        var e=eve||window.event;
+        this.ele.style.left=e.clientX-this.disX+"px";
+        this.ele.style.top=e.clientY-this.disY+"px";
+    }
+    Drag.prototype.up=function(){
+        document.removeEventListener("mousemove",this.m);
+        document.removeEventListener("mouseup",this.u);
+    }
+
+        function DragToo(ele){
+            Drag.call(this,ele)
+        }
+        for(var i in Drag.prototype){
+            DragToo.prototype[i]=Drag.prototype[i]
+        }
+        DragToo.prototype.move=function(eve){
+            var e=eve||window.event;
+            var l=e.clientX-this.disX;
+            var t=e.clientY-this.disY;
+            if(l<0) l=0;
+            if(t<0) t=0;
+            if(l>document.documentElement.clientWidth-this.ele.offsetWidth){
+                l=document.documentElement.clientWidth-this.ele.offsetWidth;
+            }
+            if(t>document.documentElement.clientHeight-this.ele.offsetHeight){
+                t=document.documentElement.clientHeight-this.ele.offsetHeight;
+            }
+            this.ele.style.left=l+"px";
+            this.ele.style.top=t+"px";
+        }
+
+    var obox1=document.querySelector(".box1");
+    var obox2=document.querySelector(".box2");
+
+    new Drag(obox1);
+    new DragToo(obox2);
+    //ES6通过关键字 class、extends继承
+    // class Drag{
+    //     constructor(ele){
+    //         this.ele=ele;
+    //         this.d=this.down.bind(this);
+    //         this.m=this.move.bind(this);
+    //         this.u=this.up.bind(this);
+    //         this.init();
+
+    //     }
+    //     init(){
+    //         this.ele.addEventListener("mousedown",this.d)
+    //     }
+    //     down(eve){
+    //         var e=eve||window.event;
+    //         this.disx=e.offsetX;
+    //         this.disy=e.offsetY;
+    //         document.addEventListener("mousemove",this.m);
+    //         document.addEventListener("mouseup",this.u);
+    //     }
+    //     move(eve){
+    //         var e=eve||window.event;
+    //         this.ele.style.left=e.clientX-this.disx+"px"
+    //         this.ele.style.top=e.clientY-this.disy+"px"
+    //     }
+    //     up(){
+    //         document.removeEventListener("mousemove",this.m)
+    //         document.removeEventListener("mouseup",this.u)
+    //     }
+    // }
+    // class DragToo extends Drag{
+    //     constructor(ele){
+    //         super(ele)
+    //     }
+    //     move(eve){
+    //         var e=eve||window.event;
+    //         var l=e.clientX-this.disx;
+    //         var t=e.clientY-this.disy;
+    //         if(l<0) l=0;
+    //         if(t<0) t=0;
+    //         this.ele.style.left=l+"px";
+    //         this.ele.style.top=t+"px";
+    //     }
+    // }
+    // var obox1=document.querySelector(".box1");
+    // var obox2=document.querySelector(".box2");
+    // new Drag(obox1);
+    // new DragToo(obox2);
+</script>
+</html>

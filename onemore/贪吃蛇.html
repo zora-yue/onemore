@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function Map(){
+        this.w=900;
+        this.h=600;
+        this.init();
+    }
+    Map.prototype.init=function(){
+        this.m=document.createElement("div");
+        this.m.style.cssText=`width:${this.w}px;height:${this.h}px;background:url(../img/timg.jpeg);
+        position:relative;margin:0 auto;background-size:${this.w}px ${this.h}px;`;
+        document.body.appendChild(this.m)
+        this.long=document.createElement("div");
+            this.long.style.cssText=`width:70px;height:20px;color:#dbbb77;font-size:800 20px/40px "";text-align:center;position:absolute;top:10px;left:350px;`;
+            this.m.appendChild(this.long)
+            this.time=document.createElement("p");
+            this.time.style.cssText=`width:70px;height:20px;color:#dbbb77;font-size:800 20px/40px "";text-align:center;position:absolute;top:10px;left:130px;margin:0;padding:0;`;
+            this.time.innerText=0;
+            this.m.appendChild(this.time)
+    }
+
+
+    function Food(){
+        this.w=20;
+        this.h=20;
+        this.c="red";
+        // setInterval(()=>{
+            this.init();
+        // },500)
+        
+    }
+    Food.prototype={
+        constructor:Food,
+        init:function(){
+            this.f=document.createElement("div");
+            this.f.style.cssText=`width:${this.w}px;height:${this.h}px;background:${this.c};position:absolute;`;
+            // console.log(mymap.m)
+            mymap.m.appendChild(this.f);
+            this.randomPos();
+        },
+        randomPos:function(){
+            this.x=random(3,41);
+            this.y=random(3,26);
+            this.f.style.left=this.x*this.w+"px";
+            this.f.style.top=this.y*this.h+"px";
+        }
+    }
+
+
+
+    class Snake{
+        constructor(){
+            this.w=20;
+            this.h=20;
+            
+            this.body=[{
+                x:6,
+                y:3,
+                c:"none"
+            },{
+                x:5,
+                y:3,
+                c:"#ff5757"
+            },{
+                x:4,
+                y:3,
+                c:"#ff5757"
+            }];
+            // 设置蛇头默认方向
+            this.direct="right";
+            this.onoff=0;
+            this.init();
+        }
+        init(){
+            for(var i=0;i<this.body.length;i++){
+                //先判断有没有，没有就创建
+                if(!this.body[i].s){
+                    this.body[i].s=document.createElement("div");
+                    this.body[i].s.style.cssText=`width:${this.w}px;height:${this.h}px;position:absolute;background:${this.body[i].c};`;
+                    mymap.m.appendChild(this.body[i].s)
+                }
+                this.body[i].s.style.left=this.body[i].x*this.w+"px";
+                this.body[i].s.style.top=this.body[i].y*this.h+"px";
+            }
+            this.body[0].s.style.backgroundImage="url(../img/she.png)";
+            this.body[0].s.style.backgroundRepeat="no-repeat";
+            this.body[0].s.style.backgroundSize="20px 20px";
+            this.body[this.body.length-1].s.style.borderRadius="20px";
+                this.t=setTimeout(function(){
+                this.move();
+            }.bind(this),200)
+        }
+        move(){
+            for(var i=this.body.length-1;i>0;i--){
+                this.body[i].x=this.body[i-1].x;
+                this.body[i].y=this.body[i-1].y;
+            }
+            switch(this.direct){
+                case "left":this.body[0].x-=1;
+                this.body[0].s.style.transform="rotate(180deg)";
+                break;
+                case "top":this.body[0].y-=1;
+                this.body[0].s.style.transform="rotate(-90deg)";
+                break;
+                case "right":this.body[0].x+=1;
+                this.body[0].s.style.transform="rotate(0)";
+                break;
+                case "bottom":this.body[0].y+=1;
+                this.body[0].s.style.transform="rotate(90deg)";
+                break;
+            }
+            if(this.body[0].x==food.x&&this.body[0].y==food.y){
+                food.randomPos();
+                var last={
+                    x:this.body[this.body.length-1].x,
+                    y:this.body[this.body.length-1].y
+                }
+                this.body.push({
+                    x:last.x,
+                    y:last.y,
+                    c:"#ff5757"
+                })
+            }
+                // 边界限定
+                if(this.body[0].x<0||this.body[0].y<0||this.body[0].x>41||this.body[0].y>26){
+                    alert("撞墙啦");
+
+                    return;
+                }
+                for(var i=1;i<this.body.length;i++){
+                    if(this.body[0].x==this.body[i].x&&this.body[0].y==this.body[i].y){
+                        alert("咬到自己啦");
+                        return;
+                    }
+                mymap.long.innerText=this.body.length-3;
+                }
+            
+            this.init();
+        }
+        direction(code){
+            switch(code){
+                case 37:if(this.direct=="right"){return;}else{this.direct="left"};
+                break;
+                case 38:if(this.direct=="bottom"){return;}else{this.direct="top"};
+                break;
+                case 39:if(this.direct=="left"){return;}else{this.direct="right"};
+                break;
+                case 40:if(this.direct=="top"){return;}else{this.direct="bottom"};
+                break;
+                // case 32:if(this.onoff==1){clearInterval(this.t);this.onoff=0;}
+                // break;
+            }
+        }
+    }
+    function random(a,b){
+        return Math.round(Math.random()*(a-b)+b);
+    }
+    document.onkeydown=function(eve){
+        var e=eve||window.event;
+        var code=e.keyCode||e.which;
+        snake.direction(code);
+    }
+    var mymap=new Map();
+    var food=new Food();
+    var snake=new Snake();
+    
+</script>
+</html>

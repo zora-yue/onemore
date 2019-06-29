@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="head">
+        <div class="head-1">
+            <div class="head-1-l"></div>
+            <div class="head-1-c"></div>
+            <div class="head-1-r"></div>
+        </div>
+    </div> -->
+    <!-- <div class="box">
+        <img src="https://nie.res.netease.com/r/pic/20180913/e8985f58-81c3-4366-8fef-791423c01b3e.gif" alt="">
+        <img src="https://nie.res.netease.com/r/pic/20181112/b94fe4de-0b77-446c-a898-5095bcf3a458.png" alt="">
+        <img src="https://nie.res.netease.com/r/pic/20190314/47205c2d-dde2-478d-b09f-7cad2f7c5ea3.png" alt="">
+        <img src="https://nie.res.netease.com/r/pic/20181008/43eb59ae-19e6-4508-9c6e-fe4afe9b3355.png" alt="">
+    </div> -->
+</body>
+<script>
+    var obox=document.querySelector(".box")
+        obox.onmouseover=function(eve){
+            var e=eve||window.event;
+            var target=e.target||e.srcElement;
+            if(target.nodeName=="IMG"){
+               target.style.transform="translateY(-30px)" 
+            }
+
+        }
+        obox.onmouseout=function(eve){
+            var e=eve||window.event;
+            var target=e.target||e.srcElement;
+            if(target.nodeName=="IMG"){
+            target.style.transform="translateY(0)"
+            }
+        }
+</script>
+
+</html>

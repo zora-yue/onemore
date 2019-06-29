@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #box{width:100px;height:100px;border:1px solid pink;margin:0 auto;font:20px/100px "";text-align: center;
+    color: skyblue;}
+    #btn{width:80px;height:30px;font:15px/30px "";display: block;margin:20px auto;}
+    </style>
+<body>
+    <div id="box">10</div>
+    <input type="button" id="btn" value="开始">
+</body>
+<script>
+    class Time{
+        constructor(){
+            this.obox=document.getElementById("box");
+            this.obtn=document.getElementById("btn");
+            this.num=this.obox.innerHTML;
+            this.num1=this.obox.innerHTML;
+            this.t;
+            this.a=0;
+            this.init();
+        }
+        init(){
+            var that=this;
+            this.obtn.onclick=function(){
+                if(that.a==0){
+                    if(that.t) clearInterval(that.t)
+                that.t=setInterval(function(){
+                    if(that.num==0){
+                        clearInterval(that.t);
+                        that.obtn.value="复位";
+                        that.a=2;
+                    }else{
+                        that.obox.innerHTML=--that.num;
+                    }
+                    
+                },1000)
+                that.obtn.value="停止";
+                that.a=1;
+                }else if(that.a==1){
+                    clearInterval(that.t);
+                    that.obtn.value="继续";
+                    that.a=0;
+                }else if(that.a==2){
+                    that.obox.innerHTML=that.num1;
+                    that.obtn.value="开始";
+                    that.a==0;
+                }
+                
+                // console.log(that.t)
+            }
+        }
+    }
+    new Time;
+</script>
+</html>

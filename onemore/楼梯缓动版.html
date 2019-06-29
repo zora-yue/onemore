@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+        div{width:900px;margin:0 auto;}
+    .div1{height:800px;background:palevioletred;}
+    .div2{height:1000px;background:palegreen;}
+    .div3{height:1200px;background:peru;}
+    .div4{height:500px;background:powderblue;}
+    .list{width:80px;right:0;position:fixed;list-style: none;}
+    .list li{height:30px;font:15px/30px "";}
+    </style>
+    
+</head>
+<body>
+    <ul class="list">
+        <li>div1</li>
+        <li>div2</li>
+        <li>div3</li>
+        <li>div4</li>
+    </ul>
+    <div class="div1">1</div>
+    <div class="div2">2</div>
+    <div class="div3">3</div>
+    <div class="div4">4</div>
+</body>
+<script src="../jquery.2.2.4.js"></script>
+    <script>
+        $(".list").children("li").click(function(){
+            $("html").animate({
+                scrollTop:$("div").eq($(this).index()).offset().top
+            })
+        })
+
+
+
+    // $(".list").children("li").on("click",function(){
+    //     $("html").animate({
+    //         scrollTop:$("div").eq($(this).index()).offset().top
+    //     })
+    // })
+    </script>
+</html>

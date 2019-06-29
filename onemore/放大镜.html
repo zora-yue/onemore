@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            .sbox{width:400px;height:300px;position:absolute;top:100px;left:50px;}
+			.sbox img{width:400px;height:300px;}
+			.sbox span{background: rgba(200,200,200,0.6);position: absolute;left:0;top:0;display: none;}
+			/* .sbox span{background:url(../img/2.jpg) no-repeat red;background-size:400px 300px;position: absolute;left:0;top:0;display:none;} */
+			.bbox{width:400px;height:300px;position:absolute;overflow: hidden;left:500px;top:100px;display: none;}
+			.bbox img{width:1600px;height:1200px;position:absolute;}
+    </style>
+</head>
+<body>
+    <div class="sbox">
+        <img src="../img/2.jpg" alt="">
+        <span></span>
+    </div>
+    <div class="bbox">
+        <img src="../img/2.jpg" alt="">
+    </div>
+</body>
+<script src="../move.js"></script>
+<script>
+    var $=function(data){
+        return document.querySelector(data);
+    }
+    class Fang{
+        constructor(){
+            this.sbox=$(".sbox");
+            this.span=$(".sbox span");
+            this.bbox=$(".bbox");
+            this.bimg=$(".bbox img");
+            this.add()
+        }
+        add(){
+            var that=this;
+            this.sbox.addEventListener("mouseover",function(){
+                that.show();
+                that.init();
+            })
+            this.sbox.addEventListener("mouseout",function(){
+                that.hide();
+            })
+            this.sbox.addEventListener("mousemove",function(eve){
+                var e=eve||window.event;
+                that.move(e);
+            })
+        }
+        init(){
+            var w=this.bimg.offsetWidth/this.bbox.offsetWidth;
+            var h=this.bimg.offsetHeight/this.bbox.offsetHeight;
+            this.span.style.width=this.sbox.offsetWidth/w+"px";
+            this.span.style.height=this.sbox.offsetHeight/h+"px";
+        }
+        move(e){
+            var l=e.pageX-this.sbox.offsetLeft-this.span.offsetWidth/2;
+            var t=e.pageY-this.sbox.offsetTop-this.span.offsetHeight/2;
+            
+            if(l<0) l=0;
+            if(t<0) t=0;
+            if(l>this.sbox.offsetWidth-this.span.offsetWidth){
+                l=this.sbox.offsetWidth-this.span.offsetWidth;
+            }
+            if(t>this.sbox.offsetHeight-this.span.offsetHeight){
+                t=this.sbox.offsetHeight-this.span.offsetHeight;
+            }
+            this.span.style.left=l+"px";
+            this.span.style.top=t+"px";
+            var x=l/(this.sbox.offsetWidth-this.span.offsetWidth);
+            var y=t/(this.sbox.offsetHeight-this.span.offsetHeight);
+            this.bimg.style.left=x*-(this.bimg.offsetWidth-this.bbox.offsetWidth)+"px";
+            this.bimg.style.top=y*-(this.bimg.offsetHeight-this.bbox.offsetHeight)+"px";
+            
+        }
+        show(){
+            this.bbox.style.display="block";
+            this.span.style.display="block";
+        }
+        hide(){
+            this.bbox.style.display="none";
+            this.span.style.display="none";
+        }
+    }
+    onload=function(){
+        new Fang;
+    }
+    // function Fang(){
+    //     this.sBox=document.querySelector(".sbox");
+    //     this.sImg=document.querySelector(".sbox img");
+    //     this.span=document.querySelector(".sbox span");
+    //     this.bBox=document.querySelector(".bbox");
+    //     this.bImg=document.querySelector(".bbox img");
+    //     this.add();
+    // }
+    // Fang.prototype.init=function(){
+    //     var w=this.bImg.offsetWidth/this.bBox.offsetWidth;
+    //     var h=this.bImg.offsetHeight/this.bBox.offsetHeight;
+    //     this.span.style.width=this.sBox.offsetWidth/w+"px";
+    //     this.span.style.height=this.sBox.offsetWidth/h+"px";
+    // }
+    // Fang.prototype.add=function(){
+    //     var that=this;
+    //     this.sBox.addEventListener("mouseover",function(){
+    //         that.show();
+    //         that.init();
+    //     })
+    //     this.sBox.addEventListener("mouseout",function(){
+    //         that.hide();
+    //     })
+    //     this.sBox.addEventListener("mousemove",function(eve){
+    //         var e=eve||window.event;
+    //         that.move(e);
+    //     })
+    // }
+    // Fang.prototype.move=function(e){
+    //     var l=e.pageX-this.sBox.offsetLeft-this.span.offsetWidth/2;
+    //     var t=e.pageY-this.sBox.offsetTop-this.span.offsetHeight/2;
+    //     if(l<0) l=0;
+    //     if(t<0) t=0;
+    //     if(l>this.sBox.offsetWidth-this.span.offsetWidth){
+    //         l=this.sBox.offsetWidth-this.span.offsetWidth;
+    //     }
+    //     if(t>this.sBox.offsetHeight-this.span.offsetHeight){
+    //         t=this.sBox.offsetHeight-this.span.offsetHeight;
+    //     }
+    //    this.span.style.left=l+"px";
+    //    this.span.style.top=t+"px";
+    //    var x=l/(this.sBox.offsetWidth-this.span.offsetWidth);
+    //    var y=t/(this.sBox.offsetHeight-this.span.offsetHeight);
+    //    this.bImg.style.left=x*(this.bBox.offsetWidth-this.bImg.offsetWidth)+"px";
+    //    this.bImg.style.top=y*(this.bBox.offsetHeight-this.bImg.offsetHeight)+"px";
+
+    // //    console.log(this.span.style.width,this.span.style.height)
+    //    this.span.style.backgroundPosition=-l+"px "+ -t +"px";
+
+    // }
+    //     Fang.prototype.show=function(){
+    //     this.sImg.style.opacity="0.6";
+    //     this.span.style.display="block";
+    //     this.bBox.style.display="block";
+    // }
+    // Fang.prototype.hide=function(){
+    //     this.sImg.style.opacity="1";
+    //     this.span.style.display="none";
+    //     this.bBox.style.display="none";
+    // }
+
+    // onload=function(){
+    //     new Fang;
+    // }
+</script>
+</html>

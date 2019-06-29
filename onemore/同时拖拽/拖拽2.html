@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .blue{width:100px;height:100px;background: rgb(5, 241, 230);position:absolute;}
+    </style>
+</head>
+<body>
+    <div class="blue"></div>
+</body>
+<script>
+var oblue=document.querySelector(".blue");
+window.onstorage=function(eve){
+    var e=eve||window.event;
+    var pos=JSON.parse(e.newValue);
+    oblue.style.left=pos.x+"px";
+    oblue.style.top=pos.y+"px";
+}
+</script>
+</html>

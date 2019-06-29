@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单例模式</title>
+    <style>
+    .box{border:1px solid pink;position: absolute;width:100px;height:100px;}
+    </style>
+</head>
+<body>
+    
+</body>
+<script>
+    //单个实例，当前函数中反复执行，只操作一个对象
+    function Fn(){
+        if(!Fn.obj){
+            Fn.obj={};
+            Fn.obj.div=document.createElement("div");
+            Fn.obj.div.className="box";
+            Fn.obj.div.innerHTML="要认真工作哟～";
+            document.body.appendChild(Fn.obj.div);
+            this.div=Fn.obj.div;
+            this.drag();
+        }
+
+        // clearTimeout(Fn.obj.t)
+        // Fn.obj.t=setTimeout(()=>{
+        //     Fn.obj.div.style.display="none";
+        // },2000)
+
+        return Fn.obj;
+    }
+    Fn.prototype.drag=function(){
+        var that=this;
+       that.div.onmousedown=function(eve){
+        var e=eve||window.event;
+        that.disY=e.offsetY;
+        that.disX=e.offsetX;
+        that.move();
+        that.up();
+       }
+    }
+    Fn.prototype.move=function(eve){
+        var that=this;
+        document.onmousemove=function(eve){
+            var e=eve||window.event;
+        that.div.style.left=e.clientX-that.disX+"px";
+        that.div.style.top=e.clientY-that.disY+"px";
+        }
+    }
+    Fn.prototype.up=function(){
+        var that=this;
+        document.onmouseup=function(){
+            document.onmouseup=null;
+            document.onmousemove=null;
+        }
+    }
+
+    document.onclick=function(){
+        new Fn();
+    }
+
+
+</script>
+</html>
