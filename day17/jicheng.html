@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .box1{width:100px;height:100px;background:red;position:absolute;left:0;top:0;}
+    .box2{width:100px;height:100px;background:blue;position:absolute;left:0;top:130px;}
+    
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+</body>
+<script>
+// function Drag(box){
+//     this.box=box;
+//     this.init();
+// }
+// Drag.prototype.init=function(){
+//     var that=this;
+//     this.m=this.move.bind(this);
+//     this.u=this.up.bind(this);
+//     this.box.addEventListener("mousedown",function(eve){
+//         var e=eve||window.event;
+//         that.disX=e.offsetX;
+//         that.disY=e.offsetY;
+//         document.addEventListener("mousemove",that.m)
+//         document.addEventListener("mouseup",that.u)
+//     })
+// }
+// Drag.prototype.move=function(eve){
+//     var e=eve||window.event;
+//     this.box.style.left=e.pageX-this.disX+"px";
+//     this.box.style.top=e.pageY-this.disY+"px";
+// }
+// Drag.prototype.up=function(){
+//     document.removeEventListener("mousemove",this.m)
+//     document.removeEventListener("mouseup",this.u)
+// }
+
+// function smallDrag(ele){
+//     Drag.call(this,ele)
+// }
+// for(var i in Drag.prototype){
+//     smallDrag.prototype[i]=Drag.prototype[i]
+// }
+// smallDrag.prototype.move=function(eve){
+//     var e=eve||window.event;
+//     var l=e.pageX-this.disX;
+//     var t=e.pageY-this.disY;
+//     if(l<0) l=0;
+//     if(t<0) t=0;
+//     this.box.style.left=l+"px";
+//     this.box.style.top=t+"px";
+// }
+
+
+
+// var obox1=document.querySelector(".box1");
+// var obox2=document.querySelector(".box2");
+// new Drag(obox1);
+// new smallDrag(obox2)
+
+
+class Drag{
+    constructor(box){
+    this.box=box;
+    this.init();
+    }
+    init(){
+        var that=this;
+        this.m=this.move.bind(this);
+        this.u=this.up.bind(this);
+        this.box.addEventListener("mousedown",function(eve){
+            var e=eve||window.event;
+            that.disX=e.offsetX;
+            that.disY=e.offsetY;
+            document.addEventListener("mousemove",that.m);
+            document.addEventListener("mouseup",that.u)
+        })
+    }
+    move(eve){
+        var e=eve||window.event;
+        this.box.style.left=e.pageX-this.disX+"px";
+        this.box.style.top=e.pageY-this.disY+"px";
+    }
+    up(){
+        document.removeEventListener("mousemove",this.m);
+        document.removeEventListener("mouseup",this.u);
+    }
+}
+
+class smallDrag extends Drag{
+    constructor(ele){
+        super(ele)
+    }
+    move(eve){
+        var e=eve||window.event;
+        var l=e.pageX-this.disX;
+        var t=e.pageY-this.disY;
+        var w=e.offsetWidth-this.disW;
+        var h=e.offsetHeight-this.disH;
+        if(l<0) l=0;
+        if(t<0) t=0;
+        this.box.style.left=l+"px";
+        this.box.style.top=t+"px";
+    }
+}
+
+var box1=document.querySelector(".box1")
+var box2=document.querySelector(".box2")
+new smallDrag(box2)
+new Drag(box1)
+</script>
+</html>

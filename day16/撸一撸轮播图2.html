@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.cont{width:1000px;height:250px;position:relative;margin:20px auto;overflow: hidden;}
+			.cont a{width:1000px;height:250px;position:absolute;left: 1000px;}
+			.cont a img{width:1000px;height:250px}
+			.cont a:nth-child(1){left:0}
+			.cont .btns input{width:50px;height:50px;border-radius: 50%;border:0;background: rgba(0,0,0,.6);position: absolute;top:100px;text-align: center;color: #fff;cursor: pointer;}
+			.btns #left{left:0}
+			#right{right:0;}
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+				<a>
+					<img src="https://img.zcool.cn/community/016ae65cd3961ea801214168637dfb.jpg"/>
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/01ffc05cd3960ca801214168ec5053.jpg"/>
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/017bef5cd396e4a801214168665b3d.jpg">
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/0155db5ccfaff2a80121416848a517.jpg"/>
+				</a>
+			<div class="btns">
+				<input type="button" id="left" value="<<<"/>
+				<input type="button" id="right" value=">>>"/>
+			</div>
+		</div>
+	</body>
+	<script src="../move.js"></script>
+	<script>
+		function Banner(){
+			this.left=document.getElementById("left");
+			this.right=document.getElementById("right");
+			this.img=document.querySelectorAll(".cont a")
+			this.index=0;
+			this.iPrev=this.img.length-1;
+			this.init()
+		}
+		Banner.prototype.init=function(){
+			var that=this;
+			this.left.onclick=function(){
+				that.changeIndex(0)
+			}
+			this.right.onclick=function(){
+				that.changeIndex(1)
+			}
+		}
+ 		Banner.prototype.changeIndex=function(type){
+			if(type==0){
+				if(this.index==0){
+					this.iPrev=0;
+				this.index=this.img.length-1;
+			}else{
+				this.index--;
+				this.iPrev=this.index+1;
+			}
+			this.display(1)
+			}else{
+				if(this.index==this.img.length-1){
+					this.iPrev=this.img.length-1;
+					this.index=0;
+				}else{
+					this.index++;
+					this.iPrev=this.index-1;
+				}
+				this.display(-1)
+			}
+			}
+				
+		Banner.prototype.display=function(type){
+			this.img[this.iPrev].style.left=0;
+			move(this.img[this.iPrev],{left:1000*type});
+			this.img[this.index].style.left=-1000*type+"px";
+			move(this.img[this.index],{left:0});
+		}
+		new Banner()
+	</script>
+</html>

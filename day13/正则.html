@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		</style>
+	</head>
+	<body>
+		登录账号：<input type="text" id="user"/><span></span><br />
+		你的昵称：<input type="text" id="name"/><span></span><br />
+		电子邮件：<input type="text" id="emil"/><span></span><br />
+		设置密码：<input type="text" id="pas"/><span></span><br />
+		确认密码：<input type="text" id="pas2"/><span></span><br />
+		<input type="button" id="btn" value="提交"/>
+	</body>
+	<script>
+		var ouser=document.getElementById("user");
+		var oname=document.getElementById("name");
+		var oemil=document.getElementById("emil");
+		var opas=document.getElementById("pas");
+		var opas2=document.getElementById("pas2");
+		var obtn=document.getElementById("btn");
+		var ouserOnOff=onameOnOff=oemilOnOff=opasOnOff=opas2OnOff=false;
+		
+		ouser.onblur=function(){
+			 var reg=/^[a-z\d]{6,15}$/;
+			if(reg.test(this.value)){
+				ouser.nextElementSibling.innerHTML="验证成功"
+				ouserOnOff=true;
+			}else{
+				ouser.nextElementSibling.innerHTML="验证失败"
+				ouserOnOff=false;
+				}
+		}
+		
+		oname.onblur=function(){
+			var reg=/^[\u2E80-\u9FFF\w-]{2,10}$/;
+			if(reg.test(this.value)){
+				oname.nextElementSibling.innerHTML="验证成功"
+				onameOnOff=true;
+			}else{
+				oname.nextElementSibling.innerHTML="验证失败"
+				onameOnOff=false;
+			}
+	       }
+		
+		oemil.onblur=function(){
+			var reg=/^[a-z\d]{3,11}\@[a-z]{2,5}\.[a-z]{2,5}$/;
+			if(reg.test(this.value)){
+				oemil.nextElementSibling.innerHTML="验证成功"
+				oemilOnOff=true;
+			}else{
+				oemil.nextElementSibling.innerHTML="验证失败"
+				oemilOnOff=false;
+			}
+		}
+		opas.onblur=function(){
+			var a=b=c=0;
+			var lengthReg=/^.{6,18}$/;
+			if(!lengthReg.test(this.value)){
+				opas.nextElementSibling.innerHTML="长度不符";
+				opasOnOff=false;
+				return;
+			}
+			var numReg=/\d/;
+			if(numReg.test(this.value)){
+				a=1;
+			}
+			var azReg=/[a-zA-Z]/;
+			if(azReg.test(this.value)){
+				b=1;
+			}
+			var tsReg=/\W_/;
+			if(tsReg.test(this.value)){
+				c=1;
+			}
+			switch(a+b+c){
+				case 1:
+				this.nextElementSibling.innerHTML="简单";break;
+				case 2:
+				this.nextElementSibling.innerHTML="一般";break;
+				case 3:
+				this.nextElementSibling.innerHTML="困难";break;
+			}
+			opasOnOff=true;
+			
+			if(opas2.value!=""){
+				if(opas2.value==this.value){
+					opas2.nextElementSibling.innerHTML="一致"
+					opas2=true;
+				}else{
+					opas2.nextElementSibling.innerHTML="不一致"
+					opas2=false;
+				}
+			}
+		}
+		opas2.onblur=function(){
+			if(this.value===opas.value){
+				this.nextElementSibling.innerHTML="一致";
+				opas2OnOff="true"
+			}else{
+				opas2.nextElementSibling.innerHTML="不一致"
+				opas2=false;
+			}
+		}
+		
+		obtn.onclick=function(){
+			if(ouserOnOff&&onameOnOff&&opas2OnOff&&opasOnOff&&oemilOnOff){
+				alert("全部成功")
+			}else{
+				alert(false)
+			}
+		}
+	</script>
+</html>

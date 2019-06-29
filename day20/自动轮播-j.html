@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.cont{width:1000px;height:250px;position:relative;margin:20px auto;}
+			.cont .imgbox img{width:1000px;height:250px;position: absolute;left:1000px;}
+			.cont .imgbox img:nth-child(1){left:0}
+			.cont .btns input{width:50px;height:50px;border-radius: 50%;border:none;background: rgba(0,0,0,.6);position: absolute;top:100px;text-align: center;color: #fff;cursor: pointer;}
+			.btns #left{left:0}
+			#right{right:0;}
+		</style>
+	</head>
+	<body>
+		<div class="cont banner1">
+			<div class="imgbox">
+					<img src="https://img.zcool.cn/community/016ae65cd3961ea801214168637dfb.jpg"/>
+					<img src="https://img.zcool.cn/community/01ffc05cd3960ca801214168ec5053.jpg"/>
+					<img src="https://img.zcool.cn/community/017bef5cd396e4a801214168665b3d.jpg">
+					<img src="https://img.zcool.cn/community/0155db5ccfaff2a80121416848a517.jpg"/>
+			</div>
+			<div class="btns">
+				<input type="button" id="left" value="<<<"/>
+				<input type="button" id="right" value=">>>"/>
+			</div>
+		</div>
+	</body>
+	<script src="../jquery.2.2.4.js"></script>
+	<script src="jquery.banner.1.0.js"></script>
+	<script src="../move.js"></script>
+	<script>
+		$(".banner1").banner({
+			items:$(".banner1 .imgbox").children(),
+			left:$(".banner1 #left"),
+			right:$(".banner1 #right"),
+			list:true,
+			autoPlay:true,
+			delayTime:3000,
+			moveTime:300,
+			index:0,
+		})
+		</script>
+		</html>

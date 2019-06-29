@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    input.error{color:red;}
+    label.error{border:1px solid red}
+    .valid{color:green;}
+    </style>
+</head>
+<body>
+    <form>
+        <input type="text" name="user" required><br>
+        <input type="text" name="pass" id="pas" required><br>
+        <input type="text" name="pass1" equalTo="#pas" required><br>
+        <input type="tel" name="tel" required maxlength="11" minlength="11"><br>
+        <input type="email" name="email" required><br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+<script src="../jquery.2.2.4.js"></script>
+<script src="../libs/jquery.validate.js"></script>
+<script src="../libs/jquery.validate.messages_zh.js"></script>
+<script>
+$("form").validate();
+</script>
+</html>

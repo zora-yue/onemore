@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			li{list-style: none;}
+			div{width:200px;height:160px;position: relative;}
+			img{display:none;width:200px;height:160px;}
+			img:nth-child(1){display: block;}
+			div ul{position: absolute;bottom: 0;left:30px;}
+			div ul li{width:10px;height:10px;border-radius:50%;background-color:pink;float: left;margin:10px;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<img src="../img/a.jpg"/>
+			<img src="../img/b.jpg"/>
+			<img src="../img/c.jpg"/>
+			<img src="../img/d.jpg"/>
+			<ul>
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		// 获取元素
+		var ali=document.querySelectorAll("div li");
+		var aimg=document.querySelectorAll("div img");
+		// 给li编码
+		for(var i=0;i<ali.length;i++){
+			ali[i].setAttribute("honey",i)
+			ali[i].onclick=function(){
+			for(var j=0;j<ali.length;j++){
+					ali[j].className="";
+					aimg[j].style.display="none";
+				}
+				this.className="active"
+				var index=this.getAttribute("honey")
+				aimg[index].style.display="block"
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

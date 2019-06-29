@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="height" value="" placeholder="身高:"/>
+		<input type="text" id="weight" value="" placeholder="体重:"/>
+		<input type="botton" id="btn" value="" placeholder="yes&no"/>
+		<script>
+			var oHgt=document.getElementById("height");
+			var oBtn=document.getElementById("btn");
+			var oWet=document.getElementById("weight");
+			oBtn.onclick=function(){
+				var h=parseFloat(oHgt.value);
+				var w=parseFloat(oWet.value);
+				console.log(oWet.value);
+				var b=(h-108)*2;
+				//oWet.value=w;
+				if(w - b <=10&&b-w<=10){
+					oBtn.value=("yes")
+				}else{
+					oBtn.value=("no")
+				}
+			}
+			
+		</script>
+	</body>
+</html>

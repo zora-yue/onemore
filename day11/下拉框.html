@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			li{list-style: none;}
+			.box{width:200px;height:40px;line-height: 40px;margin-top:20px;}
+			.box ul{margin:0;padding:0;border:1px solid #ccc;text-align: center;display: none;}
+			.box ul li{border-bottom: 1px solid #ccc;}
+			.box ul li.active{background: #50B9FD;color: #fff;}
+			.box span{width:200px;border:1px solid #ccc;text-align: center;display: block;}
+		</style>
+	</head>
+	<body>
+		<select>
+			<option>江苏</option>
+			<option>扬州</option>
+			<option>宝应</option>
+			<option>上海</option>
+			<option>范水</option>
+			<option>杨浦</option>
+		</select>
+		<div class="box">
+			<span></span>
+			<ul>
+				<li>江苏</li>
+				<li>扬州</li>
+				<li>宝应</li>
+				<li>上海</li>
+				<li>范水</li>
+				<li>杨浦</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var ospan=document.querySelector(".box span");
+		var oul=document.querySelector(".box ul");
+		var ali=document.querySelectorAll(".box ul li");
+		var a=0;
+		
+		var index=0;
+		ospan.innerHTML=ali[index].innerHTML;
+		ali[index].className="active"
+		
+		
+		
+		ospan.onclick=function(eve){
+			var e=eve||window.event;
+		if(e.stopPropagation){
+			e.stopPropagation();
+		}else{
+			e.cancelBubble=true;
+		}
+			if(a==0){
+				oul.style.display="block"
+				a=1;
+			}else{
+				oul.style.display="none"
+				a=0;
+			}
+		}
+		document.onclick=function(){
+			oul.style.display="none";
+			a=0;
+		}
+		
+		for(var i=0;i<ali.length;i++){
+			ali[i].index=i;
+			ali[i].onmouseover=function(){
+				index=this.index;
+				setActive()
+			}
+		}
+		
+		document.onkeydown=function(eve){
+			if(oul.style.display==="none") return;
+			var e=eve||window.event;
+			var code=e.keyCode||e.which;
+			
+			if(code===38){
+				if(index==0){
+					index=0;
+				}else{
+					index--
+				}
+				setActive()
+				ospan.innerHTML=ali[index].innerHTML;
+			}
+			if(code===40){
+			if(index==ali.lenght-1){
+				index=ali.length-1;
+			}else{
+				index++
+			}
+			setActive()
+			ospan.innerHTML=ali[index].innerHTML;
+		}
+		}
+		
+		
+		function setActive(){
+			for(var j=0;j<ali.length;j++){
+				ali[j].className="";
+			}
+			ali[index].className="active";
+		}
+	</script>
+</html>

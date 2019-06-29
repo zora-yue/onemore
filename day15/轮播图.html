@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.cont{width:1000px;height:250px;margin:20px auto;position:relative;overflow:hidden;}
+			.cont .imgbox{height:250px;position:absolute;left:0;}
+			.cont a{width:1000px;height:250px;float:left;}
+			.cont a img{width:1000px;height:250px;}
+			
+			.btns input{width:50px;height:50px;background:rgba(000,000,000,0.6);position: absolute;border:0;margin-top:100px;cursor: pointer;color:#FFCC33;border-radius: 50%;}
+			
+			#right{right:0;}
+			#left{left:0;}
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="imgbox">
+			<a>
+				<img src="https://img.zcool.cn/community/014aa05ccfafc3a801208f8bd14725.jpg"/>
+			</a>
+			<a>
+				<img src="https://img.zcool.cn/community/0155db5ccfaff2a80121416848a517.jpg"/>
+			</a>
+			<a>
+				<img src="https://img.zcool.cn/community/017eae5cd38503a801208f8b5c82d8.jpg"/>
+			</a>
+			<a>
+				<img src="https://img.zcool.cn/community/013dad5ccfafe3a8012141680aef3e.jpg"/>
+			</a>
+			<a>
+				<img src="https://img.zcool.cn/community/014aa05ccfafc3a801208f8bd14725.jpg"/>
+			</a>
+		</div>
+		<div class="btns">
+			<input type="button" value=">>>" id="right"/>
+			<input type="button" value="<<<" id="left"/>
+		</div>
+		</div>
+	</body>
+	<script src="../move.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		
+		function Banner(){
+			// 获取元素
+		this.img=document.querySelectorAll(".imgbox a");
+		this.imgbox=document.querySelector(".imgbox");
+		this.left=document.querySelector("#left");
+		this.right=document.querySelector("#right");
+		this.index=0;
+		this.init();
+		}
+		Banner.prototype.init=function(){
+			this.imgbox.style.width=this.img.length*this.img[0].offsetWidth+"px";
+			this.addEvent()
+		}
+		Banner.prototype.addEvent=function(){
+			var that=this;
+			this.right.onclick=function(){
+				that.changeIndex("r")
+			}
+			this.left.onclick=function(){
+				that.changeIndex("l")
+			}
+		}
+		Banner.prototype.changeIndex=function(type){
+			if(type=="r"){
+				if(this.index==this.img.length-1){
+					this.imgbox.style.left=0;
+					this.index=1;
+				}else{
+					this.index++;
+				}
+			}else{
+				if(this.index==0){
+					this.imgbox.style.left=-(this.img.length-1)*this.img[0].offsetWidth+"px";
+					this.index=this.img.length-1-1;
+					console.log(this.imgbox.style.left)
+				}else{
+					this.index--;
+				}
+			}
+			this.display()
+		}
+		Banner.prototype.display=function(){
+			move(this.imgbox,{left:-this.index*this.img[0].offsetWidth})
+		}
+		new Banner()
+	</script>
+</html>

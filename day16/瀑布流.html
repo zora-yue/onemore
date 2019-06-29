@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.cont{margin:0 auto;position:relative;}
+			.cont .box{float:left;padding:6px;}
+			.cont .box .imgbox{border:1px solid #ccc; border-radius: 6px;padding:6px;}
+			.cont .box .imgbox img{width:200px;display: block;}
+		</style>
+		<script>
+			onload=function(){
+				new pubu()
+			}
+			function pubu(){
+				// 选元素
+				this.cont=document.querySelector(".cont");
+				this.box=document.querySelectorAll(".box")
+				this.clientW=document.documentElement.clientWidth;
+				
+				this.heightArr=[];
+				// 1.完善布局
+				this.init();
+			}
+			pubu.prototype.init=function(){
+				this.maxNum=Math.floor(this.clientW/this.box[0].offsetWidth);
+				this.cont.style.width=this.maxNum*this.box[0].offsetWidth+"px";
+				// 2.区分出第一行和后面的行
+				this.fenHang()
+			}
+			
+			pubu.prototype.fenHang=function(){
+				// 3.第一行的浮动在css;获取第一行所有的高度
+				for(var i=0;i<this.maxNum;i++){
+ 					this.firstHang(i)
+ 				}
+				// 4.后面的行js定位,取第一行所有高度的最小值
+				for(var i=this.maxNum;i<this.box.length;i++){
+				    this.afterHang(i);
+				}
+			}
+			
+			pubu.prototype.firstHang=function(i){
+				this.heightArr.push(this.box[i].offsetHeight)
+			}
+			
+			pubu.prototype.afterHang=function(i){
+				this.min=this.getMin(this.heightArr);
+				this.minIndex=this.heightArr.indexOf(this.min);
+				console.log(this.min,this.minIndex)
+			this.box[i].style.position="absolute";
+			this.box[i].style.top=this.min+"px";
+			this.box[i].style.left=this.minIndex*this.box[0].offsetWidth+"px";
+			this.heightArr[this.minIndex]+=this.box[i].offsetHeight;
+			}
+			pubu.prototype.getMin=function(arr){
+				var newArr = arr.slice(0,arr.length);
+				
+				newArr.sort(function(a,b){
+					return a-b
+				});
+				
+				return newArr[0];
+			}
+		</script>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/1.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/2.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/3.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/4.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/5.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/6.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/7.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/8.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/9.jpg"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="imgbox">
+					<img src="images/10.jpg"/>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

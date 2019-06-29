@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function shu(a,b,c){
+			var ko;
+			var ha;
+			if(a>b){
+				ko=a;
+				a=b;
+				b=ko;
+			}
+			if(b>c){
+				ko=b;
+				b=c;
+				c=ko;
+			}
+			if(a>b){
+				ko=a;
+				a=b;
+				b=ko;
+			}
+			ha=a+"<"+b+"<"+c
+			document.write(ha);
+		}
+		shu(11,55,88)
+	</script>
+</html>

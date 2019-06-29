@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			div{width:20px;height:20px;background: #000;border-radius:50%;position: absolute;left:0;top:0;}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+	<script>
+		var adiv=document.querySelectorAll("div");
+		document.onmousemove=function(eve){
+			var e=eve||window.event;
+			for(var i=adiv.length-1;i>0;i--){
+				adiv[i].style.left=adiv[i-1].offsetLeft+"px";
+				adiv[i].style.top=adiv[i-1].offsetTop+"px";
+			}
+			adiv[0].style.left=e.pageX+"px";
+			adiv[0].style.top=e.pageY+"px";
+			
+		}
+	</script>
+</html>

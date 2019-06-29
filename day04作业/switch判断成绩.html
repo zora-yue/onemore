@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ÎÞ±êÌâÎÄµµ</title>
+</head>
+
+<body>
+	<input type="text" id="chengji" placeholder="请输入成绩"/>
+	<input type="button" id="btn" value="判断"/>
+</body>
+	<script>
+	var oChe = document.getElementById("chengji");
+	var oBtn = document.getElementById("btn");
+	
+	oBtn.onclick=function(){
+		var c=parseInt(oChe.value/10);
+		var b=oBtn.value;
+		var cj="";
+		switch(c){
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:cj="不及格";break;
+			case 6:cj="及格";break;
+			case 7:cj="一般般啦";break;
+			case 8:cj="良好";break;
+			case 9:cj="优秀";break;
+			case 10:cj="棒棒的";break;
+			default:cj="出错了";
+		}
+		console.log(cj);
+	}
+	
+	</script>
+</html>

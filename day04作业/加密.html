@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function mi(i){
+				var ko;
+				var jia;
+				var a=parseInt((i/1000+5)%10);
+				var b=parseInt((i/100%10+5)%10);
+				var c=parseInt((i/10%10+5)%10);
+				var d=parseInt((i%10+5)%10);
+				 ko=a;a=d;d=ko;
+				 ko=b;b=c;c=ko;
+				 jia=a+""+b+c+d
+				 document.write(jia)
+			}
+			mi(3715)
+		</script>
+	</body>
+</html>

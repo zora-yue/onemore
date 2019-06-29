@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			li{list-style: none;}
+			.sbox{width:400px;height:300px;position:absolute;left:50px;}
+			.sbox img{width:400px;height:300px;display: none;}
+			.sbox img:nth-child(1){display: block;}
+			.sbox span{width:100px;height:75px;position:absolute;left:0;top:0;background: rgba(200,200,200,0.6);display: none;}
+			.bbox{width:400px;height:300px;position:absolute;left:500px;overflow: hidden;display: none;}
+			.bbox img{width:1600px;height:1200px;position:absolute;display: none;}
+			.bbox img:nth-child(1){display: block;z-index: 4;} 
+			.bbox img:nth-child(2){display: block;z-index: 3;} 
+			.bbox img:nth-child(3){display: block;z-index: 2;} 
+			.bbox img:nth-child(4){display: block;z-index: 1;} 
+
+			ul li{width:80px;height:80px;float:left;margin:320px 10px 20px}
+			ul li.active{border:2px solid #000}
+			ul li img{width:80px;height:80px;}
+		</style>
+	</head>
+	<body>
+		<div class="sbox">
+			<img src="../img/fei.jpg"/>
+			<img src="../img/fei1.jpg"/>
+			<img src="../img/fei3.jpg"/>
+			<img src="../img/fei4.jpg"/>
+			<span></span>
+		</div>
+		<div class="bbox">
+			<img src="../img/fei.jpg"/>
+			<img src="../img/fei1.jpg"/>
+			<img src="../img/fei3.jpg"/>
+			<img src="../img/fei4.jpg"/>
+		</div>
+		<ul>
+			<li class="active"><img src="../img/fei.jpg"/></li>
+			<li><img src="../img/fei1.jpg"/></li>
+			<li><img src="../img/fei3.jpg"/></li>
+			<li><img src="../img/fei4.jpg"/></li>
+		</ul>
+	</body>
+	<script src="../move.js"></script>
+	<script src="../jquery.2.2.4.js"></script>
+	<script>
+		function Fei(){
+			var that=this;
+		$("ul").children("li").click(function(){
+			that.index=$(this).index();
+			$(this).toggleClass("active").siblings().removeClass();
+			$(".sbox").children("img").eq($(this).index()).css("display","block")
+			.siblings().css("display","none");
+			that.show();
+		})
+		this.hide();
+	}
+	Fei.prototype.show=function(){
+				//console.log(this.index)
+			var that=this;
+		$(".sbox").on("mouseover",function(){
+			$(this).children("span").css("display","block");
+			$(".bbox").css("display","block")
+			.children("img").eq(that.index).css("display","block")
+			.siblings().css("display","none")
+			//console.log(that.index)
+			that.move()
+		})
+	}
+		
+	Fei.prototype.move=function(){
+		$(".sbox").on("mousemove",function(){
+			//console.log(event.offsetX)
+			var t=event.pageY-$(this).offset().top-$(".sbox").children("span").height()/2;
+			var l=event.pageX-$(this).offset().left-$(".sbox").children("span").width()/2;
+			
+			if(l<0) l=0;
+			if(t<0) t=0;
+			if(l>$(".sbox").width()-$(".sbox").children("span").width()){
+				l=$(".sbox").width()-$(".sbox").children("span").width()
+			}
+			if(t>$(".sbox").height()-$(".sbox").children("span").height()){
+				t=$(".sbox").height()-$(".sbox").children("span").height()
+			}
+			 $(".sbox").children("span").css("top",t)
+			 $(".sbox").children("span").css("left",l)
+			var x=l/($(".sbox").width()-$(".sbox").children("span").width());
+			var y=t/($(".sbox").height()-$(".sbox").children("span").height());
+			$(".bbox").children("img").css("top",y*-($(".bbox").children("img").height()-$(".bbox").height()))
+			$(".bbox").children("img").css("left",x*-($(".bbox").children("img").width()-$(".bbox").width()))
+			//console.log(x,y)
+			// console.log($("")children("img").height())
+
+		})
+
+	}
+	Fei.prototype.hide=function(){
+		$(".sbox").on("mouseout",function(){
+			$(".sbox").children("span").css("display","none");
+			$(".bbox").css("display","none");
+		})
+	}
+		new Fei();
+
+
+
+
+
+		// var sBox=document.querySelector(".sbox");
+		// var sImg=document.querySelectorAll(".sbox img");
+		// var bBox=document.querySelector(".bbox");
+		// var bImg=document.querySelectorAll(".bbox img");
+		// var ali=document.querySelectorAll("ul li")
+
+		// for(var i=0;i<ali.length;i++){
+		// 	ali[i].setAttribute("honey",i);
+		// 	ali[i].onclick=function(){
+		// 		for(var j=0;j<ali.length;j++){
+		// 			ali[j].className="";
+		// 			sImg[j].style.display="none";
+		// 		}
+		// 		this.className="active";
+		// 		var index=this.getAttribute("honey")
+		// 		sImg[index].style.display="block";
+		// 	}
+		// }
+
+		// sbox.onmouseover=function(){
+			
+		// }
+		// function Fei(){
+		// 	this.sBox=document.querySelector(".sbox");
+		// 	this.sImg=document.querySelectorAll(".sbox img");
+		// 	this.bBox=document.querySelector(".bbox");
+		// 	this.bImg=document.querySelectorAll(".bbox img");
+		// 	this.ali=document.querySelectorAll("ul li")
+		// 	this.init()
+		// }
+		// //点击小图显示对应大图
+		// //鼠标在大图上移动显示放大
+		// Fei.prototype.init=function(){
+		// 	var that=this;
+		// 	for(var i=0;i<this.ali.length;i++){
+		// 		this.ali[i].setAttribute("honey",i)
+		// 		this.add(i);
+		// 	}
+		// 	}
+		
+		// 	Fei.prototype.add=function(i){
+		// 		this.ali[i].onlick=function(){
+		// 			this.ali[i].className=""
+		// 		}
+		// 		this.className="active"
+		// 	}
+				
+			
+		// new Fei()
+	</script>
+</html>

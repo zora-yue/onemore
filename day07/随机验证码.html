@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+// 		function randomStr(){
+// 		var str="";
+// 		for(var i=0;i<4;i++){
+// 		var n=random(0,9);
+// 		var zm=String.fromCharCode(random(65,90));
+// 		var ZM=String.fromCharCode(random(97,122));
+// 		str=str+n+zm+ZM;
+// 		}
+// 		var rstr="";
+// 		for(i=0;i<4;i++){
+// 			var index=random(0,str.length-1)
+// 			rstr+=str[index]
+// 		}
+// 		return rstr;
+// 		}
+// 		console.log(randomStr())
+//  		function random(max,min){
+// 			return Math.round(Math.random()*(max-min)+min)
+// 		}
+		
+		
+		var str="";
+		for(i=0;i<4;i++){
+		var num=random(0,9);
+		var zm=String.fromCharCode(random(65,90));
+		var ZM=String.fromCharCode(random(97,122));
+		str=str+num+zm+ZM;
+		}
+		// console.log(str)
+		var Str="";
+		for(i=0;i<4;i++){
+			var t=random(0,str.length-1);
+			Str+=str[t];
+		}
+		console.log(Str)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function random(max,min){
+			return Math.round(Math.random()*(max-min)+min);
+		}
+		
+		
+	</script>
+</html>

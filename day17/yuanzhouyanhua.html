@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#cont{width:80%;height:600px;background:#000;position:relative;margin:10px auto;overflow: hidden;}
+			.fire{width:10px;height:10px;position:absolute;bottom:0;}
+			.firework{width:10px;height:10px;position:absolute;border-radius: 50%;}
+		</style>
+	</head>
+	<body>
+		<div id="cont"></div>
+	</body>
+	<script src="../move.js"></script>
+	<script>
+		function Fire(pos,cont){
+			this.x=pos.x;
+			this.y=pos.y;
+			this.cont=cont;
+			this.create();
+		}
+		
+		Fire.prototype.create=function(){
+			this.mainFire=document.createElement("div");
+			this.mainFire.className="fire";
+			this.mainFire.style.left=this.x+"px";
+			this.mainFire.style.background=this.randomColor();
+			this.cont.appendChild(this.mainFire);
+			this.move();
+		}
+		
+		Fire.prototype.move=function(){
+			var that=this;
+			move(this.mainFire,{top:this.y},function(){
+				that.mainFire.remove();
+				that.createSmall();
+			})
+		}
+		
+		Fire.prototype.createSmall=function(){
+			var num=this.random(10,20);
+			var r=this.random(100,200)
+			for(i=0;i<num;i++){
+				let div=document.createElement("div");
+				div.className="firework";
+				div.style.left=this.x+"px";
+				div.style.top=this.y+"px";
+				div.style.background=this.randomColor();
+				this.cont.appendChild(div);
+				
+				var reg=360/num*i;
+				var pos={
+					x:parseInt(Math.cos(Math.PI/180*reg)*r+this.x),
+					y:parseInt(Math.sin(Math.PI/180*reg)*r+this.y)
+				}
+				move(div,{
+					left:pos.x,
+					top:pos.y
+				},function(){
+					div.remove();
+				})
+				
+// 				move(div,{
+// 					left:this.random(0,this.cont.offsetWidth),
+// 					top:this.random(0,this.cont.offsetHeight)
+// 					},function(){
+// 						div.remove()
+// 					})
+			}
+		}
+		
+		
+		
+		
+		Fire.prototype.random=function(a,b){
+			return Math.round(Math.random()*(a-b)+b);
+		}
+		Fire.prototype.randomColor=function(){
+			const r=this.random(0,255);
+			const g=this.random(0,255);
+			const b=this.random(0,255);
+			return `rgb(${r},${g},${b})`
+		}
+		var oCont=document.getElementById("cont");
+		oCont.onclick=function(eve){
+			var e=eve||window.event;
+			new Fire({
+				x:e.offsetX,
+				y:e.offsetY
+			},oCont);
+		}
+	</script>
+</html>

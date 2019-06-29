@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.box{width:500px;height:500px;border:1px solid #50B9FD;margin:0 auto;position:relative;}
+			.qiu{width:50px;height:50px;background:#FFCC33;border-radius: 50%;position:absolute;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="qiu"></div>
+		</div>
+	</body>
+	<script>
+		var oqiu=document.querySelector(".qiu");
+		var obox=document.querySelector(".box");
+		var timer;
+		var speed=7;
+		var target=obox.offsetHeight-2-oqiu.offsetHeight;
+		var g=2;
+		var leftSpeed=10;
+		var rightTarget=obox.offsetWidth-2-oqiu.offsetWidth;
+		
+		document.onclick=function(){
+			var a=0;
+			clearInterval(timer);
+			timer=setInterval(function(){
+				speed+=g;
+				
+				if(target-oqiu.offsetTop<speed){
+					// clearInterval(timer);
+					oqiu.style.top=target+"px";
+					speed=-speed*.8;
+					if(Math.abs(speed)<1){
+						clearInterval(timer)
+						a=1;
+					}
+				}else{
+					oqiu.style.top=oqiu.offsetTop+speed+"px"
+				}
+				
+				if(rightTarget-oqiu.offsetLeft<leftSpeed){
+					oqiu.style.left=rightTarget+"px"
+					leftSpeed=-leftSpeed;
+				}else{
+					oqiu.style.left=oqiu.offsetLeft+leftSpeed+"px";
+				}
+				if(oqiu.offsetLeft<0){
+					oqiu.style.left=0;
+					leftSpeed=-leftSpeed;
+				}else{
+					oqiu.style.left=oqiu.offsetLeft+leftSpeed+"px";
+				}
+			},30)
+		}
+	</script>
+</html>

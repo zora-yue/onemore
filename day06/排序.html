@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+// 			var arr=[]
+// 			for(var i=0;i<30;i++){
+// 				arr[i]=random(1,10)
+// 			}
+// 			console.log(arr)
+// 			for(var i=0;i<arr.length;i+=5){
+// 				console.log(ave(arr.slice(i,i+5)))
+// 			}
+// 			function ave(myarr){
+// 				var sum=0;
+// 				for(var i=0;i<myarr.length;i++){
+// 					sum+=myarr[i]
+// 				}
+// 				return sum/myarr.length;
+// 			}
+// 			
+// 		function random(a,b){
+// 			return Math.round(Math.random()*(a-b)+b)
+// 		}	
+		
+		var arr=[]
+		for(var i=0;i<30;i++){
+			arr[i]=random(1,10)
+		}
+		console.log(arr)
+		for(var i=0;i<arr.length;i+=5){
+			console.log(ave(arr.slice(i,i+5)))
+		}
+		function ave(myarr){
+			var sum=0;
+			for(var i=0;i<myarr.length;i++){
+			sum+=myarr[i]
+			}
+			return sum/myarr.length;
+		}
+		function random(a,b){
+			return Math.round(Math.random()*(a-b)+b)
+		}
+		
+		
+		
+		
+		
+		function map(arr){
+			for(i=0;i<arr.length;i++){
+				arr[i]=arr[i]*1.3
+			}
+			return arr
+		}
+		
+		console.log(map([5,6,9,33,24,8]))
+		</script>
+		</body>
+</html>
+
+
+
+

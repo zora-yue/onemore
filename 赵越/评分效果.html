@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>评分效果</title>
+    <link rel="stylesheet" href="css/public.css">
+    <style type="text/css">
+        .box{margin:30px auto;width:400px;border:1px solid #000;}
+        .box span{width:27px;height:28px;display:block;float:left;background:url(star.gif) no-repeat center;background-position:0 0;margin:0 5px;}
+
+    </style>
+</head>
+<body>
+    <div class="box clear">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        
+    </div>
+
+   
+</body>
+<script type="text/javascript" src="js/public.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var obox=document.querySelector(".box");
+    var aspan = document.querySelectorAll(".box span");
+    var index=0;
+    
+    for(var i =0;i<aspan.length;i++){
+        aspan[i].index = i;
+        aspan[i].onmouseover = function(eve){
+            var e = eve || window.event;
+            if(e.stopPropagation){
+                e.stopPropagation()
+            }else{
+                e.cancelBubble = true;
+            }
+
+            for(var j=0;j<aspan.length;j++){
+                aspan[j].style.backgroundPosition = "0 0";
+            }
+            for(var j=0;j<=this.index;j++){
+                aspan[j].style.backgroundPosition = " 0 -29px";
+            }
+        } 
+    }
+
+    document.onmouseover = function(){
+        for(var j=0;j<aspan.length;j++){
+            aspan[j].style.backgroundPosition = "0 0";
+        }
+    }
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

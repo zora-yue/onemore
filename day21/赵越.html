@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{padding:0;margin:0;}
+        li{list-style: none;}
+    ul{width:800px;height:300px;border:5px solid #2ea0ad;margin:20px auto;background: #cef2f6;color:#2b3f3a;display: flex;justify-content: space-around;padding:10px;}
+    ul li{width:150px;text-align: center;}
+    ul li dt{width:150px;font:20px/35px "";height:35px;position: relative;}
+    ul li dt .cai{width:130px;}
+    ul li dt .jia{position:absolute;z-index: 100;width:10px;height:35px;cursor: pointer;top:0;right:-10px;}
+    ul li dd{font:16px/20px "";height:20px;width:100%;margin-top:10px;display:none;}
+    ul li dd span{float: left;}
+    ul li dd p{float:right;}
+    ul li dd p b{margin-left:10px;color: #f61515;cursor: pointer;}
+    .box{display: none;width:200px;height:100px;border:1px solid #2ea0ad;position: absolute;background:#fff;top:100px;left:40%;text-align: center;}
+    .box .ming{margin-top:20px;}
+    .data{width:800px;border:1px solid #2ea0ad;margin:0 auto;}
+    </style>
+    <script src="../jquery.2.2.4.js"></script>
+</head>
+<body>
+    <ul>
+        
+    </ul>
+    <div class="box">
+        <input type="text" class="ming"><br>
+        <input type="text" class="qian"><br>
+        <input type="button" class="btn" value="提交">
+    </div>
+    <div class="data"></div>
+</body>
+<script type="text/javascript">
+
+    var menu = [
+
+            {"type_id":1,"name":"大菜","food":[
+
+                                            {"food_id":1,"name":"鱼香肉丝","price":"10"},
+
+                                            {"food_id":2,"name":"红烧肉","price":"11"},
+
+                                            {"food_id":3,"name":"香辣粉","price":"12"}
+
+                                            ]},
+
+            {"type_id":2,"name":"中菜","food":[
+
+                                            {"food_id":4,"name":"小炒肉","price":"13"},
+
+                                            {"food_id":5,"name":"云吞","price":"14"}
+
+                                            ]},
+
+            {"type_id":3,"name":"小菜","food":[
+
+                                            {"food_id":6,"name":"雪糕","price":"15"},
+
+                                            {"food_id":7,"name":"黄瓜","price":"16"}
+
+                                            ]}      
+
+        ];
+
+        class Menu{
+            constructor(){
+                //渲染页面数据
+                 var str="";
+                for(var i=0;i<menu.length;i++){
+//                    console.log(menu[i].name)
+                    var index  = i;
+                    str+=`<li><dl>
+                            <dt><p class="cai">${menu[index].name}<p><b class="jia">+</b></dt>
+                            `;
+                    for(var j=0;j<menu[index].food.length;j++){
+//                        console.log(menu[index].food[j])
+                        str+=`
+                            <dd><span>${menu[index].food[j].name}</span><p>${menu[index].food[j].price} <b class="del">-</b></p></dd>
+                            `;
+                }
+                    str+=`</dl></li>`;
+            }
+                            // console.log(str)
+            $("ul").html(str);
+            
+            this.hover();
+            }
+            hover(){
+                //二级菜单
+                // $("dt").children(".cai").hover(function(){
+                //     $(this).parent().siblings("dd").css("display","block")
+                // },function(){
+                //     $(this).parent().siblings("dd").css("display","none")
+                // })
+                
+                $("dt").children(".cai").mouseover(function(){
+                    $(this).parent().siblings("dd").show(1000)
+                    .parents("li").siblings().find("dd").hide(1000)
+                })
+                $(document).click(function(){
+                    $(this).find("dd").hide(1000)
+                })
+                this.look();
+            }
+            look(){
+               this.main=JSON.stringify(menu);
+               var str="";
+               for(var i=0;i<this.main.length;i++){
+                str+=this.main[i];
+               }
+               $(".data").html(str)
+               this.delete();
+                this.add();
+
+           }
+            delete(){
+                //删除数据
+                $(document).on("click", ".del", function() {
+                $(this).parents("dd").remove()
+                })
+            }
+            add(){
+                //准备增加数据了
+                var that=this;
+                $(document).on("click",".jia",function(){
+                    $(".box").css("display","block");
+                    that.index=$(this).parents("li").index();
+                    that.zeng();
+            }) 
+            }
+            zeng(){
+                //增加数据。停留在当前菜单时进行增加看不到，需要先退出当前，再进入时显示新增菜名
+                var that=this;
+                $(".btn").on("click",function(){
+                    var arr = [];
+                    var str = "";
+                    $(".box").find("input").each(function(){
+                        arr.push($(this).val())
+                    })
+                    // console.log(arr)
+
+                    str = `<dd><span>${arr[0]}</span><p>${arr[1]}<b class="del">-</b></p></dd>`;
+                    // console.log(str)
+                    // console.log(that.index)
+                    $("dl").eq(that.index).append(str)
+                    that.hide();
+                })
+            }
+           hide(){
+               $(".box").on("mouseout",function(){
+                   $(this).css("display","none")
+               })
+               
+           }
+        }
+        new Menu;
+                    
+                
+                
+// step 1: 根据menu的数据，动态生成一个二级联运菜单
+
+// step 2: 实现动态增加、修改、删除菜单dom节点，同时保持dom结构与json保持同步
+
+// step 3: 实现通过拖拽修改菜单结构（可使用jQuery插件），同时保持dom结构与json保持同步
+
+// step 4: 在页面上有区域实时显示json数据
+</script>
+</html>

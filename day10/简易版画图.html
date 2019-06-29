@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			span{position:absolute;left:20px;bottom:20px;}
+			#box{border-radius: 50%;position:absolute;}
+			input{position:relative;z-index: 1;}
+		</style>
+	</head>
+	<body>
+		<input type="button" id="add" value="+"/>
+		<input type="button" id="reduce" value="-"/>
+		<input type="color" id="color"/>
+		<span></span>
+	</body>
+	<script>
+		var ospan=document.querySelector("span");
+		var oadd=document.getElementById("add");
+		var ored=document.getElementById("reduce");
+		var ocol=document.getElementById("color");
+		var w=10;
+		var h=10;
+		var c="black";
+		document.onmousemove=function(eve){
+			var e=eve||window.event;
+			ospan.innerHTML=e.clientX+","+e.clientY;
+			
+			var div=document.createElement("div");
+			div.id="box";
+			document.body.appendChild(div)
+			div.style.width=w+"px";
+			div.style.height=h+"px";
+			div.style.left=e.clientX+"px";
+			div.style.top=e.clientY+"px";
+			div.style.background=c;
+		}
+		
+		oadd.onclick=function(){
+			w+=5;
+			h+=5;
+		}
+		ored.onclick=function(){
+			if(w<=5){
+				w=5;
+				h=5;
+			}else{
+				w-=5;
+				h-=5;
+			}
+		}
+		ocol.onchange=function(){
+			c=this.value;
+		}
+	</script>
+</html>

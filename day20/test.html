@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">
+        <p>p1</p>
+        <p>p2</p>
+        <p>p3</p>
+        <p>p4</p>
+        <u>u1</u>
+        <u>u2</u>
+        <u>u3</u>
+        <u>u4</u>
+    </div>
+</body>
+<script>
+    var obox=document.querySelector(".box");
+    var ap=document.querySelectorAll(".box p")
+    obox.onclick=function(eve){
+        var e=eve||window.event;
+        var target=e.target||e.srcElement;
+        if(target.nodeName=="P"){
+            console.log(target)
+        }
+    }
+
+// var p={
+//     name:"yue",
+//     age:24,
+//     sex:"girl",
+//     city:"shanghai",
+//     school:"qianfeng"
+// }
+// var {name,age}=p;
+// console.log("name="+name,"age="+age)
+// var a=34;
+// var b=36;
+// [a,b]=[b,a];
+// console.log(a,b)
+
+// var p={
+//     name:"yue",
+//     borth:1994,
+//     age:function(){
+//        var that=this;
+//         function getage(){
+//             var y=new Date().getFullYear();
+//             return y-that.borth;
+//         }
+//         return getage();
+//     },
+//     sex:"girl",
+//     city:"shanghai",
+//     school:"qianfeng"
+    
+// }
+// console.log(p.age())
+
+// function fn(a){
+//     console.log(this)
+//     console.log(a)
+//     console.log(arguments)
+    
+// }
+// var f=fn.bind("hello","world",123,678)
+// console.log(f)
+// f()
+// fn()
+
+    // var obj={
+    //     name:"min",
+    //     show:function(){
+    //         console.log(this.name+"笑了")
+    //     }
+    // }
+    // var obj1={
+    //     name:"小小",
+    //     show:function(){
+    //         console.log(this.name+"笑了")
+    //     }
+    // }
+
+    // obj.show()
+    // obj.show.bind(obj1)()
+
+
+
+
+
+
+</script>
+</html>

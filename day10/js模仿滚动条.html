@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			div{width:80px;line-height: 40px;background: #ccc;text-align: center;position: absolute;top:100px;leift:0;}
+		</style>
+	</head>
+	<body>
+		<h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1><h1>我想你我爱你喜欢你</h1>
+		<div>回到顶部</div>
+	</body>
+	<script>
+		var odiv=document.querySelector("div");
+		var startTop=100;
+		var time;
+		window.onscroll=function(){
+			var t=document.documentElement.scrollTop;
+			odiv.style.top=startTop+t+"px";
+		}
+		odiv.onclick=function(){
+			clearInterval(time)
+			time=setInterval(function(){
+				if(document.documentElement.scrollTop<=0){
+					clearInterval(time)
+				}else{
+					document.documentElement.scrollTop-=50;
+				}
+			},30)
+		}
+	</script>
+</html>

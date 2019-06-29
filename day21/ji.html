@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../jquery.2.2.4.js"></script>
+</head>
+<body>
+        <div class="navigation" id="navigation"></div>
+</body>
+<script>
+var json = {
+                "success": true,
+                "code": "200",
+                "data": [{
+                    "name": "1",
+                    "icon": "icon-yuyue",
+                    "userLevel": "我的预约",
+                    "list": [{
+                        "name": "2",
+                        "url": "../MyReservation/index.html",
+                        "userLevel": "预约成功"
+                    },{
+                        "name": "2",
+                        "url": "../LookHouse/index.html",
+                        "userLevel": "已看完房"
+                    }]
+                },
+                    {
+                        "name": "2",
+                        "icon": "icon-wujiaoxing",
+                        "userLevel": "我的收藏",
+                        "list": [{
+                            "name": "2",
+                            "url": "../CollectShops/index.html",
+                            "userLevel": "收藏店铺",
+                            // "list": [{
+                            //     "name": "3",
+                            //     "userLevel": "c三级"
+                            // }]
+                        },{
+                            "name": "2",
+                            "url": "../CollectHouse/index.html",
+                            "userLevel": "收藏房源"
+                        }]
+                    },{
+                        "name": "1",
+                        "icon": "icon-zuji-copy",
+                        "url":"../MyFootprint/index.html",
+                        "userLevel": "我的足迹"
+                    },{
+                        "name": "1",
+                        "icon": "icon-zufangyuechifangzimianxing",
+                        "url": "../MyRent/index.html",
+                        "userLevel": "我的租房"
+                    }, {
+                        "name": "1",
+                        "icon": "icon-zhangdan",
+                        "url": "../MyBill/index.html",
+                        "userLevel": "我的账单"
+                    }, {
+                        "name": "1",
+                        "icon": "icon-baoxiu",
+                        "userLevel": "房屋报修",
+                        "list": [{
+                            "name": "2",
+                            "url": "#",
+                            "userLevel": "我的报修"
+                        },{
+                            "name": "2",
+                            "url": "#",
+                            "userLevel": "增加服务"
+                        }]
+                    },{
+                        "name": "1",
+                        "icon": "icon-comment",
+                        "url": "#",
+                        "userLevel": "我的评论"
+                    },{
+                        "name": "1",
+                        "icon": "icon-qianbao",
+                        "userLevel": "奖励钱包",
+                        "list": [{
+                            "name": "2",
+                            "url": "#",
+                            "userLevel": "我的余额"
+                        },{
+                            "name": "2",
+                            "url": "#",
+                            "userLevel": "交易流水"
+                        }]
+                    }
+                ]
+            };
+
+
+
+            var str = " "; 
+ 
+/*递归实现获取无级树数据并生成DOM结构*/
+ 
+var forTree = function (data) {
+   for(var i=0; i<data.length; i++) {
+        var urlstr = "";
+        try {
+               
+             if(typeof  data[i]["url"] === undefined) {
+                 urlstr = "<div class='box'><i class='iconfont "+ o[i]['icon'] +"' ></i><span>"+o[i]["userLevel"]+"</span><ul>";
+             }else {
+                  urlstr = "<div class='box'><i class='iconfont "+ o[i]['icon'] +"' ></i><span><a target='myFrameName' href="+ o[i]["url"] +">"+ o[i]["userLevel"] +"</a></span><ul>";
+             }
+              str+= urlstr;
+              if(data[i]["list"] != null) {
+                  forTree(data[i]["list"]);
+              } 
+              str += "</ul></div>"
+        }catch(e) {}        
+    }     
+      return str; 
+};     
+ 
+$("#navigation").html( forTree(json.data));
+ 
+var menuTree = function(){
+                //给有子对象的元素加
+                $("#navigation ul").each(function(index, element) {
+                    var ulContent = $(element).html();
+                    var spanContent = $(element).siblings("span").html();
+                    if(ulContent){
+                        $(element).siblings("span").html(spanContent + "<i id='one' class='iconfont icon-xiangshangjiantou-copy-copy-copy'></i>")
+                    }
+                });
+ 
+                $("#left_navbar").find("div span").click(function(){
+                    var ul = $(this).siblings("ul");
+                    var spanStr = $(this).html();
+                    var spanContent = spanStr.substr(0,4);
+                    console.log(spanContent);
+                    if(ul.find("div").html() != null){
+                        if(ul.css("display") == "none"){
+                            ul.show(300);
+                            $(this).html(spanContent + "<i id='one' class='jiantou iconfont icon-xiangshangjiantou'></i>");
+                        }else{
+                            ul.hide(300);
+                            $(this).html(spanContent + "<i id='one' class='jiantou iconfont icon-xiangshangjiantou-copy-copy-copy'></i>");
+                        }
+                    }
+                })
+            }();
+
+</script>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		// 地图
+		function Map(){
+			this.w=800;
+			this.h=400;
+			this.c="#ddd";
+			// 创建元素
+			this.init()
+		}
+		Map.prototype.init=function(){
+			this.m=document.createElement("div");
+			this.m.style.cssText=`width:${this.w}px;height:${this.h}px;background:${this.c};position:relative;margin:0 auto;`;
+			document.body.appendChild(this.m);
+		}
+		// 食物
+		function Food(){
+			this.w=20;
+			this.h=20;
+			this.c="red";
+			this.init();
+		}
+		Food.prototype={
+			
+			constructor:Food,
+			init:function(){
+				
+			this.f=document.createElement("div");
+			this.f.style.cssText=`width:${this.w}px;height:${this.h}px;background:${this.c};position:absolute;`;
+			// 插入地图
+			myMap.m.appendChild(this.f);
+			this.randomPos();
+		},
+		// 随机位置
+		randomPos:function(){
+			this.f.style.left=random(0,39)*this.w+"px";
+			this.f.style.top=random(0,19)*this.h+"px";
+		}
+		}
+		
+		class Snake{
+			constructor(){
+				this.w=20;
+				this.h=20;
+				this.body=[{
+					x:3,
+					y:3,
+					c:"green"
+				},{
+					x:3,
+					y:2,
+					c:randomColor()
+				},{
+					x:3,
+					y:1,
+					c:randomColor()
+				}];
+				this.d="right";
+				this.init();
+			}
+		
+		init(){
+			for(var i=0;i<this.body.length;i++){
+				if(!this.body[i].n){
+					this.body[i].n=document.createElement("div");
+					this.body[i].n.style.cssText=`width:${this.w}px;height:${this.h}px;background:${this.body[i].c};position:absolute;`;
+					myMap.m.appendChild(this.body[i].n);
+				}
+				this.body[i].n.style.left=this.body[i].y*this.w+"px";
+				this.body[i].n.style.top=this.body[i].x*this.h+"px";
+			}
+			this.body[0].n.innerHTML="0";
+				setTimeout(()=>{
+					this.move()
+				},100)
+		}
+		move(){
+			for(var i=this.body.length-1;i>0;i--){
+				this.body[i].x=this.body[i-1].x
+				this.body[i].y=this.body[i-1].y
+			}
+			switch(this.d){
+				case "left":
+				this.body[0].y-=1;break;
+				case "right":
+				this.body[0].y+=1;break;
+				case "top":
+				this.body[0].x-=1;break;
+				case "bottom":
+				this.body[0].x+=1;break;
+			}
+			if(this.body[0].x<0||this.body[0].y<0||this.body[0].x>19||this.body[0].y>39){
+				alert("撞墙啦");
+				return;
+			}
+			for(var i=1;i<this.body.length;i++){
+				if(this.body[i].x==this.body[0].x&&this.body[i].y==this.body[0].y){
+					alert("笨蛋！咬到自己了")
+					return;
+				}
+			}
+			
+			if(this.body[0].x==food.x&&this.body[0].y==food.y){
+				this.body.push({
+					x:this.body[this.body.length-1].x,
+					y:this.body[this.body.length-1].y,
+					c:randomColor()
+				})
+				food.randomPos()
+			}
+			
+			this.init();
+		}
+		direct(type){
+		switch(type){
+			case 37:
+			this.d="left";break;
+			case 38:
+			this.d="top";break;
+			case 39:
+			this.d="right";break;
+			case 40:
+			this.d="bottom";break;
+		}	
+		}
+		}
+		function random(a,b){
+			return Math.round(Math.random()*(a-b)+b);
+		}
+		function randomColor(){
+			return `rgb(${random(0,255)},${random(0,255)},${random(0,255)})`;
+		}
+		
+		var myMap=new Map();
+		var food=new Food();
+		var snake=new Snake();
+		document.onkeydown = function(eve){
+				var e = eve || widnow.event;
+				var code = e.keyCode || e.which;
+				snake.direct(code)
+			}
+		
+	</script>
+</html>

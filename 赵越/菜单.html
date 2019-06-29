@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0}
+			li{list-style: none;}
+			.box{width:140px;height:300px;background: #ccc;text-align: center;padding:30px;}
+			.box span{line-height: 60px;display: block;cursor: pointer;}
+			.box .active{border-bottom: 1px solid blue;}
+			.box ul{display: none;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+				<span class="active">江苏</span>
+				<ul>
+				<li>扬州</li>
+				<li>常州</li>
+				<li>南京</li>
+				<li>无锡</li>
+				</ul>
+				<span>上海</span>
+				<ul>
+				<li>杨浦</li>
+				<li>虹口</li>
+				<li>静安</li>
+				<li>黄浦</li>
+				</ul>
+				<span>浙江</span>
+				<ul>
+				<li>舟山</li>
+				<li>义乌</li>
+				<li>舟山</li>
+				<li>小商品</li>
+				</ul>
+				<span>安徽</span>
+				<ul>
+				<li>黄山</li>
+				<li>淮南</li>
+				<li>芜湖</li>
+				<li>牛肉汤</li>
+				</ul>
+	</div>
+	</body>
+	<script>
+
+		
+		var oBox=document.querySelector(".box");
+		var aspan=document.querySelectorAll(".box span");
+		var aul=document.querySelectorAll(".box ul");
+		var ali=document.querySelectorAll(".box li");
+		var a=0;
+		
+		
+		
+		for(var i=0;i<aspan.length;i++){
+			aspan[i].setAttribute("num",i)
+			aspan[i].onclick=function(eve){
+				var e=eve||window.event;
+				if(e.stopPropagation){
+					e.stopPropagation()
+				}else{
+					e.cancelBubble=true;
+				}
+				for(var j=0;j<aspan.length;j++){
+					aspan[j].className="";
+					aul[j].style.display="none";
+				}
+				this.className="active";
+				var index=this.getAttribute("num")
+				if(a==0){
+				aul[index].style.display="block";
+				a=1;
+				}else{
+					aul[index].style.display="none";
+					a=0;
+				}
+				document.onclick=function(){
+					aspan[i].onclick=document.onclick=null;
+				}
+				}
+				}
+				
+				
+				
+
+
+// 		function Kuang(){
+// 			this.oBox=document.querySelector(".box");
+// 			this.aspan=document.querySelectorAll(".box span");
+// 			this.aul=document.querySelectorAll(".box ul");
+// 			this.ali=document.querySelectorAll(".box li");
+// 			this.init()
+// 		}
+// 		
+// 		Kuang.prototype.init=function(){
+// 			// 编号
+// 			for(var i=0;i<this.aspan.length;i++){
+// 			this.aspan[i].setAttribute("num",i)
+// 			this.addEvent()
+// 		}
+// 		
+// 		Kuang.prototype.addEvent=function(){
+// 			
+// 		}
+	</script>
+</html>

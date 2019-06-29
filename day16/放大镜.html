@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.sbox{width:400px;height:300px;position:absolute;top:100px;left:50px;}
+			.sbox img{width:400px;height:300px;}
+			.sbox span{width:100px;height:75px;background: rgba(200,200,200,0.6);position: absolute;left:0;top:0;display: none;}
+			.dbox{width:400px;height:300px;position:absolute;overflow: hidden;left:500px;top:100px;display: none;}
+			.dbox img{width:1600px;height:1200px;position:absolute;}
+		</style>
+	</head>
+	<body>
+		<div class="sbox">
+			<img src="../img/1.jpg"/>
+			<span></span>
+		</div>
+		<div class="dbox">
+			<img src="../img/1.jpg"/>
+		</div>
+	</body>
+	<script src="../move.js"></script>
+	<script>
+		function Magnifier(){
+			this.sBox=document.querySelector(".sbox");
+			this.span=document.querySelector(".sbox span");
+			this.bBox=document.querySelector(".dbox");
+			this.bImg=document.querySelector(".dbox img");
+			this.init()
+		}
+		Magnifier.prototype.init=function(){
+			var that=this;
+			this.sBox.onmouseover=function(){
+				that.show();
+			}
+			this.sBox.onmouseout=function(){
+				that.hide();
+			}
+			this.sBox.onmousemove=function(eve){
+				var e=eve||window.event;
+				that.move(e)
+			}
+		}
+		
+		Magnifier.prototype.move=function(e){
+			var l=e.pageX-this.sBox.offsetLeft-this.span.offsetWidth/2;
+			var t=e.pageY-this.sBox.offsetTop-this.span.offsetHeight/2;
+			if(l<0){
+				l=0;
+			}
+			if(t<0){
+				t=0;
+			}
+			if(l>this.sBox.offsetWidth-this.span.offsetWidth){
+				l=this.sBox.offsetWidth-this.span.offsetWidth
+			}
+			if(t>this.sBox.offsetHeight-this.span.offsetHeight){
+				t=this.sBox.offsetHeight-this.span.offsetHeight;
+			}
+			this.span.style.left=l+"px";
+			this.span.style.top=t+"px";
+			var x=l/(this.sBox.offsetWidth-this.span.offsetWidth);
+			var y=t/(this.sBox.offsetHeight-this.span.offsetHeight);
+			this.bImg.style.left=x*-(this.bImg.offsetWidth-this.bBox.offsetWidth)+"px";
+			this.bImg.style.top=y*-(this.bImg.offsetHeight-this.bBox.offsetHeight)+"px";
+		}
+		Magnifier.prototype.show=function(){
+			this.span.style.display="block";
+			this.bBox.style.display="block";
+		}
+		Magnifier.prototype.hide=function(){
+			this.span.style.display="none";
+			this.bBox.style.display="none";
+		}
+		new Magnifier();
+	</script>
+</html>

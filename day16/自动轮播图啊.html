@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.cont{width:1000px;height:250px;position:relative;margin:20px auto;overflow: hidden;}
+			.cont .imgbox{height:250px;position: absolute;left:0;}
+			.imgbox a{width:1000px;height:250px;float:left;}
+			.imgbox a img{width:1000px;height:250px;}
+			.cont .btns input{width:50px;height:50px;border-radius: 50%;border:0;background: rgba(0,0,0,.6);position: absolute;top:100px;text-align: center;color: #fff;cursor: pointer;}
+			.btns #left{left:0}
+			#right{right:0;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<div class="imgbox">
+				<a>
+					<img src="https://img.zcool.cn/community/016ae65cd3961ea801214168637dfb.jpg"/>
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/01ffc05cd3960ca801214168ec5053.jpg"/>
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/017bef5cd396e4a801214168665b3d.jpg">
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/0155db5ccfaff2a80121416848a517.jpg"/>
+				</a>
+				<a>
+					<img src="https://img.zcool.cn/community/016ae65cd3961ea801214168637dfb.jpg"/>
+				</a>
+			</div>
+			<div class="btns">
+				<input type="text" id="left" value="<<<"/>
+				<input type="text" id="right" value=">>>"/>
+			</div>
+		</div>
+	</body>
+	<script src="../move.js"></script>
+	<script>
+		function Banner(){
+			// 1.获取元素
+			this.cont=document.querySelector(".cont");
+			this.left=document.getElementById("left");
+			this.right=document.getElementById("right");
+			this.imgBox=document.querySelector(".imgbox");
+			this.img=document.querySelectorAll(".imgbox a");
+			this.index=0;
+			
+			this.init();
+			this.timer();
+		}
+		Banner.prototype.init=function(){
+			this.imgBox.style.width=this.img.length*this.img[0].offsetWidth+"px";
+			this.addEvent();
+		}
+		Banner.prototype.timer=function(t){
+			var that=this;
+			this.t=setInterval(function(){
+				that.changeIndex(1)
+			},3000)
+			this.stop()
+		}
+		
+		Banner.prototype.stop=function(){
+			var that=this;
+			this.cont.onmouseover=function(){
+				clearInterval(that.t);
+			}
+			this.cont.onmouseout=function(){
+				that.timer()
+			}
+		}
+
+ 		Banner.prototype.addEvent=function(){
+			var that=this;
+			this.left.onclick=function(){
+				that.changeIndex(0)
+			}
+			this.right.onclick=function(){
+				that.changeIndex(1)
+			}
+		}
+		Banner.prototype.changeIndex=function(type){
+			if(type==0){
+				if(this.index==0){
+					this.imgBox.style.left=-(this.img.length-1)*this.img[0].offsetWidth+"px";
+					this.index=this.img.length-1-1;
+
+				}else{
+					this.index--
+				}
+			}else{
+				if(this.index==this.img.length-1){
+					this.imgBox.style.left=0;
+					this.index=1;
+				}else{
+					this.index++
+				}
+			}
+			this.display()
+		}
+		Banner.prototype.display=function(){
+			move(this.imgBox,{left:-this.index*this.img[0].offsetWidth})
+		}
+		new Banner();
+	</script>
+</html>

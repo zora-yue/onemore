@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			div{width:200px;height:200px;background:firebrick;position:absolute;}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script>
+		var odiv=document.querySelector("div");
+		var chientW=document.documentElement.client
+		odiv.onmousedown=function(eve1){
+			var e1=eve1||window.event;
+			document.onmousemove=function(eve2){
+				var e2=eve2||window.event;
+				var t=e2.pageY-e1.offsetY;
+				var l=e2.pageX-e1.offsetX;
+				if(t<0) t=0;
+				if(l<0) l=0;
+				odiv.style.top=t+"px";
+				odiv.style.left=l+"px";
+			}
+			document.onmouseup=function(){
+				document.onmousemove=document.onmouseup=null;
+			}
+		}
+	</script>
+</html>

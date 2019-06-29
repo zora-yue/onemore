@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			li{list-style: none;}
+			.box{width:400px;height:300px;border:1px solid #ccc;position:absolute;}
+			.box h3{line-height: 40px;border-bottom: 1px solid #ccc;}
+			.box img{display:none;width:400px;height:260px}
+			img:nth-child(2){display: block;}
+			div ul{position:absolute;bottom: 10px;left:160px;}
+			div ul li{width:10px;height:10px;background: #FFC0CB;border-radius: 50%;float: left;margin:0 10px;}
+			div ul li.active{border: 1px solid red;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<h3>来呀～快活啊</h3>
+			<img src="../img/a.jpg"/>
+			<img src="../img/b.jpg"/>
+			<img src="../img/c.jpg"/>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var ali=document.querySelectorAll(".box li");
+		var oh3=document.querySelector("h3");
+		var aimg=document.querySelectorAll("img");
+		var obox=document.querySelector(".box")
+		
+		for(var i=0;i<ali.length;i++){
+			ali[i].setAttribute("xuhao",i)
+			ali[i].onclick=function(eve){
+				var c=eve||window.event;
+				if(c.stopPropagation){
+					c.stopPropagation()
+				}else{
+					c.cancelBubble=true;
+				}
+				for(var j=0;j<ali.length;j++){
+					ali[j].className="";
+					aimg[j].style.display="none";
+				}
+				this.className="active"
+				var index=this.getAttribute("xuhao")
+				aimg[index].style.display="block"
+			}
+		}
+		
+		var clientW=document.documentElement.clientWidth;
+		var clientH=document.documentElement.clientHeight;
+		
+		 oh3.onmousedown=function(eve){
+			 var e1=eve||window.event;
+			 document.onmousemove=function(eve){
+				 var e2=eve||window.event;
+				 var l=e2.pageX-e1.offsetX;
+				 var t=e2.pageY-e1.offsetY;
+				 if(t<0) t=0;
+				 if(l<0) l=0;
+				 if(l>clientW-oh3.offsetWidth){
+					 l=clientW-oh3.offsetWidth;
+				 }
+				 if(t>clientH-obox.offsetHeight){
+					 t=clientH-obox.offsetHeight;
+				 }
+				 obox.style.left=l+"px";
+				 obox.style.top=t+"px";
+			 }
+			 document.onmouseup=function(){
+				 document.onmousemove=document.onmouseup=null;
+			 }
+		 }
+		
+		
+		
+	</script>
+</html>

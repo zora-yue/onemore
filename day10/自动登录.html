@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			
+			p{width:100px;border:1px solid #FFCC33;display: none;}
+		</style>
+	</head>
+	<body>
+		<h3>自动登录</h3>
+		<p>为了您的安全请不要在网吧等公共场所使用！</p>
+	</body>
+	<script>
+		var oh3=document.querySelector("h3");
+		var op=document.querySelector("p");
+		oh3.onmouseover=function(){
+			op.style.display="block";
+		}
+		setTimeout(function(){
+			oh3.onmouseout=function(){
+				op.style.display="none";
+			}
+		},500)
+	</script>
+</html>

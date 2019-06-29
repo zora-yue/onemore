@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#cont{width:80%;height:600px;background: #000;margin:20px auto;position:relative;}
+			.fire{width:10px;height:10px;position: absolute;bottom:0;}
+			.firework{width:10px;height:10px;position: absolute;border-radius: 50%;}
+		</style>
+	</head>
+	<body>
+		<div id="cont"></div>
+	</body>
+	<script src="../move.js"></script>
+	<script>
+		function Fire(pos,cont){
+			this.x=pos.x;
+			this.y=pos.y;
+			this.cont=cont;
+			this.create();
+		}
+		Fire.prototype.create=function(){
+			this.mainFire=document.createElement("div");
+			this.mainFire.className="fire";
+			this.mainFire.style.background=this.randomColor();
+			this.mainFire.style.left=this.x+"px";
+			this.cont.appendChild(this.mainFire)
+			this.move();
+		}
+		
+		Fire.prototype.move=function(){
+			var that=this;
+			move(this.mainFire,{top:this.y},function(){
+				that.mainFire.remove();
+				that.createSmall();
+			})
+		}
+		
+		Fire.prototype.createSmall=function(){
+			var num=this.random(10,20);
+			for(var i=0;i<num;i++){
+				let div=document.createElement("div");
+				div.className="firework";
+				div.style.background=this.randomColor();
+				console.log(div.style.background)
+				div. style.left=this.x+"px";
+				div.style.top=this.y+"px";
+				div.setAttribute("index",i);
+				this.cont.appendChild(div);
+				
+				move(div,{
+				left:this.random(0,this.cont.offsetWidth),
+				top:this.random(0,this.cont.offsetHeight)
+				},function(){
+					 div.remove();
+				})
+			}
+		}
+		Fire.prototype.smallMove=function(){
+			
+		}
+		Fire.prototype.random=function(a,b){
+			return Math.round(Math.random()*(a-b)+b);
+		}
+		
+		Fire.prototype.randomColor=function(){
+			const r=this.random(0,255);
+			const g=this.random(0,255);
+			const b=this.random(0,255);
+			return `rgb(${r},${g},${b})`
+		}
+		
+		var oCont=document.getElementById("cont");
+		oCont.onclick=function(eve){
+			var e=eve||window.event;
+			new Fire({
+				x:e.offsetX,
+				y:e.offsetY
+			},oCont)
+		}
+		
+	</script>
+</html>

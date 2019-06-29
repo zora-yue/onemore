@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="year" value=""/>
+		<input type="text" id="month" value=""/>
+		<input type="text" id="day" value=""/>
+		<input type="button" id="btn" value="计算"/>
+	    <input type="text" id="txt" value=""/>
+		
+		<script>
+			var oYear=document.getElementById("year")
+			var oMonth=document.getElementById("month")
+			var oDay=document.getElementById("day")
+			var oBtn=document.getElementById("btn")
+			var oTxt=document.getElementById("txt")
+			oBtn.onclick=function(){
+				var y=oYear.value
+				var m=parseInt(oMonth.value)
+				var d=parseInt(oDay.value)
+				var sum=0
+				
+				switch(m){
+					case 12:
+					sum+=30;
+					case 11:
+					sum+=31;
+					case 10:
+					sum+=30;
+					case 9:
+					sum+=31;
+					case 8:
+					sum+=31;
+					case 7:
+					sum+=30;
+					case 6:
+					sum+=31;
+					case 5:
+					sum+=30;
+					case 4:
+					sum+=31;
+					case 3:
+					if(y%4===0 || y%100!=0 && y%400==0){
+						sum+=29;
+					}else{sum+=28;}
+					
+					case 2:
+					sum+=31;
+					case 1:
+					sum+=d;
+				}
+				oTxt.value=sum;
+				}
+		</script>
+	</body>
+</html>

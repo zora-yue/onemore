@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li{list-style: none;}
+    .nav{position:fixed;top:40%;right:0;background:#ccc;}
+    .nav li{width:40px;height:40px;color:#fff;}
+    .div1{width:800px;height:600px;background:pink;}
+    .div2{width:800px;height:600px;background:yellow;}
+    .div3{width:800px;height:600px;background:purple;}
+    .div4{width:800px;height:600px;background:green;}
+
+    </style>
+</head>
+<body>
+    <ul class="nav">
+        <li>div1</li>
+        <li>div2</li>
+        <li>div3</li>
+        <li>div4</li>
+    </ul>
+    <ul>
+        <li><div class="div1">1</div></li>
+        <li><div class="div2">2</div></li>
+        <li><div class="div3">3</div></li>
+        <li><div class="div4">4</div></li>
+    </ul>
+</body>
+<script src="../jquery.2.2.4.js"></script>
+<script>
+    $(".nav").children("li").click(function(){
+        //console.log($(this).index())
+        //console.log($("div").eq($(this).index()))
+        //console.log($("div").eq($(this).index()).offset().top)
+
+            $(document).scrollTop($("div").eq($(this).index()).offset().top)
+
+    })
+</script>
+</html>

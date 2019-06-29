@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			.box{width:484px;height:468px;padding:8px 16px;border:1px solid #1158A8;margin: 0 auto;}
+			.box .talk{width:484px;height:300px;border:1px solid #666;overflow:auto;}
+			.talk div{max-width:260px;padding:6px;margin:6px;border-radius: 6px;clear:both;}
+			.talk div:nth-child(2n){float:left;background: limegreen;}
+			.talk div:nth-child(2n-1){float:right;background:dodgerblue;}
+			.box #txt{width:464px;height:100px;border:1px solid #666;margin-top:10px;padding:10px;}
+			.box #btn{float:right;width:80px;height:30px;margin-top:8px;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="talk"></div>
+			<textarea id="txt"></textarea>
+			<input type="button" value="发送" id="btn"/>
+		</div>
+	</body>
+	<script>
+		var otalk=document.querySelector(".talk");
+		var otxt=document.getElementById("txt");
+		var obtn=document.getElementById("btn");
+		obtn.onclick=function(){
+			send()
+		}
+		
+		otxt.onkeydown=function(eve){
+			var e=eve||window.event;
+			var code=e.keyCode||e.which;
+			if(code==13){
+				send()
+			}
+		}
+		
+		function send(){
+			var str=otxt.value;
+			var div=document.createElement("div")
+			div.innerHTML=str;
+			otalk.appendChild(div)
+			otalk.scrollTop=otalk.scrollHeight;
+			otxt.value="";
+			otxt.blur()
+		}
+	</script>
+</html>

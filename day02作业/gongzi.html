@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="rate" value="" placeholder="时薪:"/>
+		<input type="text" id="hour" value="" placeholder="工时:"/>
+		<input type="button" id="btn" value="点我算工资"/>
+		<input type="text" id="money" value="" placeholder="合计"/>
+		<script>
+			var oRate=document.getElementById("rate")
+			var oHour=document.getElementById("hour")
+			var oMoy=document.getElementById("money")
+			var oBtn=document.getElementById("btn")
+			oBtn.onclick=function(){
+			var r=parseInt(oRate.value);
+			var h=parseInt(oHour.value);
+			if(h>40){
+				var m=(h-40)*r*1.5+40*r
+			}else{var m=h*r}
+			oMoy.value=m}
+		</script>
+		
+		
+	</body>
+</html>
