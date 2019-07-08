@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <textarea name="" id="t1" cols="30" rows="10"></textarea>
+</body>
+<script>
+    //等页面加载完成后执行，不等外面链接加载完成
+   document.addEventListener("DOMContentLoaded",function(){
+       var ot1=document.querySelector("#t1");
+        if(localStorage.yue){
+            ot1.value=localStorage.yue
+        }
+        ot1.oninput=function(){
+            localStorage.yue=ot1.value;
+            console.log(ot1.value)
+        }
+   })
+</script>
+</html>

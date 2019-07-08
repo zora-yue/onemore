@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <video src="../material/2.mp4" id="video"></video>
+    <div id="progress">
+        <div id="bar"></div>
+    </div>
+    <input type="button" id="btn1" value="开始">
+    <input type="button" id="btn2" value="暂停">
+    <input type="button" id="btn3" value="快进">
+    <input type="button" id="btn4" value="快退">
+    <input type="button" id="btn5" value="倍速+">
+    <input type="button" id="btn6" value="倍速-">
+    <input type="button" id="btn7" value="音量+">
+    <input type="button" id="btn8" value="音量-">
+    <input type="button" id="btn9" value="静音">
+    <input type="button" id="btn10" value="静音">
+</body>
+<script>
+    var $=function(data){
+        return document.getElementById(data);
+    }
+    class myVideo{
+        constructor(){
+            this.btn1=$("btn1");
+            this.btn2=$("btn2");
+            this.btn3=$("btn3");
+            this.btn4=$("btn4");
+            this.btn5=$("btn5");
+            this.btn6=$("btn6");
+            this.btn7=$("btn7");
+            this.btn8=$("btn8");
+            this.btn9=$("btn9");
+            this.btn10=$("btn10");
+            this.v=$("video")
+            this.add()
+        }
+        add(){
+            var that=this;
+            this.btn1.onclick=function(){
+                that.v.play();
+            }
+            this.btn2.onclick=function(){
+                that.v.pause()
+            }
+            this.btn3.onclick=function(){
+                that.v.currentTime+=5;
+            }
+            this.btn4.onclick=function(){
+                that.v.currentTime-=5;
+            }
+            this.btn5.onclick=function(){
+                if(that.v.playbackRate>8) that.v.playbackRate=8;
+                console.log(that.v.playbackRate)
+                    that.v.playbackRate++;
+                
+            }
+            this.btn6.onclick=function(){
+                if(that.v.playbackRate<0) that.v.playbackRate=1;
+                    that.v.playbackRate--
+                
+            }
+            this.btn7.onclick=function(){
+                that.v.volume++;
+            }
+            this.btn8.onclick=function(){
+                that.v.volume--;
+            }
+            var a=1;
+            this.btn9.onclick=function(){
+                if(a==1){
+                    that.v.muted=true;
+                    this.value="开"
+                    a=2;
+                }else{
+                    that.v.muted=false;
+                    this.value="关"
+                    a=1;
+
+                }
+            }
+            this.b
+        }
+    }
+    new myVideo();
+</script>
+</html>

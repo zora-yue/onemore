@@ -10,10 +10,90 @@
     
 </body>
     <script>
-        class Play{
+        function Map(){
+            this.w=1020;
+            this.h=600;
+            this.init();
+        }
+        Map.prototype.init=function(){
+            this.m=document.createElement("div");
+            this.m.style.cssText=`width:${this.w}px;height:${this.h}px;background:#060e1b;position:relative;margin:0 auto;`;
+            document.body.appendChild(this.m);
+        }
+        class Zhuan{
             constructor(){
-                
+                this.w=100;
+                this.h=40;
+                this.c="#b2fa04";
+                this.init();
+            }
+            init(){
+                for(var i=0;i<50;i++){
+                this.div=document.createElement("div");
+                this.div.style.cssText=`width:${this.w}px;height:${this.h}px;float:left;background:${this.c};border:1px solid #f6f6f6`;
+                mymap.m.appendChild(this.div);
+                }
             }
         }
+        class Qiu{
+            constructor(){
+                this.btn=document.createElement("div");
+                this.btn.style.cssText=`text-align:center;color:#fff;width:60px;height:40px;border-radius:50%;position:absolute;top:200px;right:-100px;background:#060e1b;border:6px solid red;padding-top:20px;`;
+                this.btn.innerHTML="开始";
+                mymap.m.appendChild(this.btn);
+                this.ban=document.createElement("div");
+                this.ban.style.cssText=`width:200px;height:10px;background:#6f070e;position:absolute;bottom:5px;left:410px;`;
+                mymap.m.appendChild(this.ban);
+                this.qq=document.createElement("div");
+                this.qq.style.cssText=`width:40px;height:40px;background:pink;position:absolute;border-radius:50%;bottom:15px;left:490px;`;
+                mymap.m.appendChild(this.qq);
+                this.init()
+            }
+            init(){
+                this.t;
+                this.speed=10;
+                this.target=parseInt(zhuan.div.offsetTop+this.qq.offsetHeight);
+                this.add()
+            }
+            add(){
+                this.a=0;
+                var that=this;
+                this.btn.onclick=function(){
+                    if(that.a==0){
+                        that.btn.innerHTML="暂停";
+                        that.move();
+                        that.a=1;
+                    }else if(that.a==1){
+                        that.btn.innerHTML="开始";
+                        that.stop();
+                        that.a=0;
+                    }else if(a==2){
+                        that.btn.innerHTML="再玩<br/>一次"
+                        that.a=1;
+                    }
+                }
+            }
+            move(){
+                var that=this;
+                this.t=setInterval(function(){
+                    if(that.target-that.qq.offsetTop<that.speed){
+                        console.log(that.target,that.qq.offsetTop)
+                        that.qq.style.top=that.target+"px";
+                        that.speed=-that.speed;
+                            clearInterval(that.t)
+                    }else{
+                        console.log(1)
+                        that.qq.style.top=that.qq.offsetTop-that.speed+"px"
+                    }
+                },30)
+            }
+            stop(){
+
+            }
+        }
+
+        var mymap=new Map();
+        var zhuan=new Zhuan();
+        var qiu=new Qiu();
     </script>
 </html>

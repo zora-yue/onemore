@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #box{width:100px;height:100px;background: coral;position:absolute;left: 0;top: 0;}
+    </style>
+</head>
+<body>
+    <div id="box">小盒子</div>
+</body>
+<script>
+    var box=document.getElementById("box");
+    var pos=localStorage.pos&&JSON.parse(localStorage.pos);
+    if(pos){
+        box.style.left=pos.left+"px";
+        box.style.top=pos.top+"px";
+    }
+    box.onmousedown=function(eve){
+        var e=eve||window.event;
+        var disX=e.clientX-box.offsetLeft;
+        var disY=e.clientY-box.offsetTop;
+        document.onmousemove=function(eve){
+            var e=eve||window.event;
+            box.style.left=e.clientX-disX+"px";
+            box.style.top=e.clientY-disY+"px";
+            localStorage.setItem('pos',JSON.stringify({
+                left:box.offsetLeft,
+                top:box.offsetTop
+            }));
+        }
+        document.onmouseup=function(){
+            document.onmousemove=document.onmouseup=null;
+        }
+        return false;
+    }
+    window.onstorage=function(eve){
+        if(eve.key==="pos"){
+            box.style.left=JSON.parse(eve.newValue).left+"px";
+            box.style.top=JSON.parse(eve.newValue).top+"px";
+        }
+    }
+    // class Drag{
+    //     constructor(){
+    //         this.Drag=document.getElementById("box");
+    //         t
+    //     }
+    // }
+</script>
+</html>
